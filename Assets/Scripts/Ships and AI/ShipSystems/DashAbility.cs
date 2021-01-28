@@ -1,0 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DashAbility : _Ability {
+
+    public float distance = 10;
+    public float time = 0.5f;
+
+    public override void DoAbility() {
+        ship.ChangeState(new Spaceship.States.Dashing(distance, time));
+    }
+}

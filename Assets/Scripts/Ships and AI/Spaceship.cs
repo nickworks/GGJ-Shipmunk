@@ -25,12 +25,41 @@ public class Spaceship : MonoBehaviour {
                 ship.DoUpdateSubSystems();
                 ship.DoPhysTick();
                 ship.DoSlowDown();
-
+                
                 return null;
             }
         }
         public class Dashing : _State {
+            
+            float time = 0.5f;
+            float distance = 0;
 
+            Vector3 start;
+            Vector3 end;
+
+            float animTimer = 0;
+
+            public Dashing(float distance, float time) {
+                this.time = time;
+                this.distance = distance;
+            }
+            public override _State Update() {
+
+                ship.DoUpdateSubSystems();
+
+                animTimer += Time.deltaTime;
+                ship.transform.localPosition = AnimMath.Lerp(start, end, animTimer / time, true);
+                if (animTimer >= time) return new Moving();
+
+                return null;
+            }
+            public override void OnStart(Spaceship ship) {
+                base.OnStart(ship);
+
+                start = ship.transform.localPosition;
+                end = start + ship.controller.dirToMove * distance;
+                ship.velocity = ship.controller.dirToMove * distance / time;
+            }
         }
     }
 
@@ -106,7 +135,7 @@ public class Spaceship : MonoBehaviour {
         ChangeState(state.Update());
 
     }
-    private void ChangeState(States._State next) {
+    public void ChangeState(States._State next) {
         if (next == null) return;
         if (state != null) state.OnEnd();
         state = next;
@@ -146,6 +175,11 @@ public class Spaceship : MonoBehaviour {
     private void DoSlowDown(float amountLeftAfterSecond = .05f) {
         velocity = AnimMath.Slide(velocity, Vector3.zero, amountLeftAfterSecond, Time.deltaTime);
     }
+    /*
+    private void DoAbility(AbilitySlots slot) {
+        if (!abilitySystems.ContainsKey(slot)) return;
+        abilitySystems[slot].
+    }*/
     private void DoUpdateSubSystems() {
 
         if (engine) engine.DoTick();
