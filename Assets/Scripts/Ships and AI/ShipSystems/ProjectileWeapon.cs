@@ -31,7 +31,7 @@ public class ProjectileWeapon : _Ability
             off *= Random.Range(-randomWidth, randomWidth);
 
             Projectile p = Instantiate(projectilePrefab, transform.position + off, Quaternion.LookRotation(dir, Vector3.up));
-            p.InitBullet(ship.controller.allegiance, 30);
+            p.InitBullet(ship.controller.allegiance);
         }
         
     }

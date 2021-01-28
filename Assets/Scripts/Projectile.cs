@@ -10,9 +10,8 @@ public class Projectile : MonoBehaviour
     float age = 0;
     public Controller.Allegiance allegiance;
 
-    public void InitBullet(Controller.Allegiance allegiance, float speed = 1) {
+    public void InitBullet(Controller.Allegiance allegiance) {
         this.allegiance = allegiance;
-        this.baseSpeed = speed;
     }
 
     // Update is called once per frame

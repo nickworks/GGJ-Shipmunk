@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: 10
-  baseSpeed: 1
+  baseSpeed: 30
   baseLifeSpan: 4
   allegiance: 0
 --- !u!65 &3265381913370933954
