@@ -18,6 +18,11 @@ public class PlayerController : Controller {
 
         wantsToAbilityA = Input.GetButton("Fire1");
         wantsToAbilityB = Input.GetButton("Fire2");
+
+        float axis3 = Input.GetAxisRaw("Fire3");
+
+        wantsToAbilityC = axis3 > .2f;
+        wantsToAbilityD = axis3 < -.2f || Input.GetButton("Fire4");
     }
 
     private void InputMove() {

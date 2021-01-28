@@ -40,9 +40,7 @@ public class Spaceship : MonoBehaviour {
     public Controller controller { get; private set; }
     public States._State state { get; private set; }
 
-
-    [HideInInspector]
-    public _ShipSystem[] prefabsToTest;
+    public _ShipSystem[] prefabsToAddAtRuntime;
 
     private _Engine engine;
     private List<_Passive> passiveSystems = new List<_Passive>();
@@ -61,7 +59,7 @@ public class Spaceship : MonoBehaviour {
         }
 
         // test install from prefab definitions:
-        foreach (_ShipSystem prefab in prefabsToTest)
+        foreach (_ShipSystem prefab in prefabsToAddAtRuntime)
             if(prefab) SpawnAndInstall(prefab);
 
     }
