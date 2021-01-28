@@ -14,18 +14,24 @@ public class ProjectileWeapon : _Ability
     public float randomWidth = 0.5f;
     public float randomAngle = 0;
 
+    public float angleRotate = 0;
+    private float angleOffset = 0;
+
     override public void DoAbility() {
+        angleOffset += angleRotate * Time.deltaTime;
+
         if (delayTimer > 0) return;
 
         delayTimer = 1 / bulletsPerSecond;
 
-        float yawAim = transform.eulerAngles.y;
 
-        float offsetAngle = (splitAmount / 2) * splitAngle;
+        float yawAim = transform.eulerAngles.y;
+        yawAim -= (splitAmount / 2) * splitAngle;
+        yawAim += angleOffset;
 
         for (int i = 0; i < splitAmount; i++) {
 
-            float radsAngle = Mathf.Deg2Rad * (yawAim - offsetAngle + i * splitAngle);
+            float radsAngle = Mathf.Deg2Rad * (yawAim + i * splitAngle);
             Vector3 dir = new Vector3(Mathf.Sin(radsAngle), 0, Mathf.Cos(radsAngle));
             Vector3 off = Vector3.Cross(dir, Vector3.up);
             off *= Random.Range(-randomWidth, randomWidth);
