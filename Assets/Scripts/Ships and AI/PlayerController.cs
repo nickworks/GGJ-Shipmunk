@@ -15,7 +15,9 @@ public class PlayerController : Controller {
         InputMove();
         InputAimMouse();
         //InputAimController();
-        wantsToAttack = Input.GetButton("Fire1");
+
+        wantsToAction1 = Input.GetButton("Fire1");
+        wantsToAction2 = Input.GetButton("Fire2");
     }
 
     private void InputMove() {

@@ -17,8 +17,9 @@ public class Controller : MonoBehaviour {
     [HideInInspector] public bool wantsToMove;
     [HideInInspector] public Vector3 dirToMove;
     [HideInInspector] public bool wantsToAim;
-    [HideInInspector] public bool wantsToAttack;
     [HideInInspector] public Vector3 dirToAim;
+    [HideInInspector] public bool wantsToAction1;
+    [HideInInspector] public bool wantsToAction2;
 
     void Start() {
         Init();
