@@ -6,8 +6,10 @@ using UnityEngine;
 public class PlayerController : Controller {
     
     Camera cam;
+    ScrollerController scroller;
     protected override void Init() {
         base.Init();
+        scroller = FindObjectOfType<ScrollerController>();
         cam = Camera.main;
         allegiance = Allegiance.Player;
     }
@@ -23,6 +25,9 @@ public class PlayerController : Controller {
 
         wantsToAbilityC = axis3 > .2f;
         wantsToAbilityD = axis3 < -.2f || Input.GetButton("Fire4");
+    }
+    private void LateUpdate() {
+        ship.Clamp(scroller.min, scroller.max);
     }
 
     private void InputMove() {

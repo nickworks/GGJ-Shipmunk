@@ -146,6 +146,27 @@ public class Spaceship : MonoBehaviour {
         force.y = 0;
         velocity += force;
     }
+    public void Clamp(Vector3 min, Vector3 max) {
+        Vector3 pos = transform.position;
+
+        if (pos.x < min.x) {
+            pos.x = min.x;
+            velocity.x = 0;
+        }
+        if (pos.x > max.x) {
+            pos.x = max.x;
+            velocity.x = 0;
+        }
+        if (pos.z < min.z) {
+            pos.z = min.z;
+            velocity.z = 0;
+        }
+        if (pos.z > max.z) {
+            pos.z = max.z;
+            velocity.z = 0;
+        }
+        transform.position = pos;
+    }
     public bool SpawnAndInstall(_ShipSystem prefab) {
         if (prefab == null) return false;
 
