@@ -14,7 +14,7 @@ public class Spaceship : MonoBehaviour {
         public class Moving : _State {
             public override _State Update() {
 
-                ship.DoDrive();
+                ship.engine.DoDrive();
                 ship.DoAim();
                 ship.DoPhysTick();
                 ship.DoSlowDown();
@@ -32,11 +32,13 @@ public class Spaceship : MonoBehaviour {
 
     public Controller controller { get; private set; }
     public States._State state { get; private set; }
+    public _Engine engine { get; private set; }
     public Transform weaponArt;
 
 
     void Start() {
         controller = GetComponent<Controller>();
+        engine = GetComponentInChildren<_Engine>();
     }
     
     void Update() {
@@ -55,9 +57,6 @@ public class Spaceship : MonoBehaviour {
     public void AddForce(Vector3 force) {
         force.y = 0;
         velocity += force;
-    }
-    void DoDrive() {
-        if (controller.wantsToMove) AddForce(controller.dirToMove * speed * Time.deltaTime);
     }
     void DoAim() {
         if (controller.wantsToAim) weaponArt.rotation = Quaternion.LookRotation(controller.dirToAim, Vector3.up);
