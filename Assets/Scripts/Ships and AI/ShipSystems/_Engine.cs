@@ -6,7 +6,7 @@ public class _Engine : _ShipSystem {
 
     public float strength = 1;
 
-    override public void DoTick() {
+    public void DoTick() {
         if (ship.controller.wantsToMove)
             ship.AddForce(ship.controller.dirToMove * strength * Time.deltaTime);
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MachineGun : _Weapon
+public class ProjectileWeapon : _Ability
 {
     public Projectile projectilePrefab;
 
@@ -14,7 +14,7 @@ public class MachineGun : _Weapon
     public float randomWidth = 0.5f;
     public float randomAngle = 0;
 
-    override public void DoAttack() {
+    override public void DoAbility() {
         if (delayTimer > 0) return;
 
         delayTimer = 1 / bulletsPerSecond;

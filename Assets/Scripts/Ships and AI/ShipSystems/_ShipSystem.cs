@@ -9,5 +9,4 @@ public class _ShipSystem : MonoBehaviour {
     void Start() {
         ship = GetComponentInParent<Spaceship>();
     }
-    virtual public void DoTick() {}
 }

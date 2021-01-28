@@ -31,13 +31,13 @@ public class AIController : Controller {
 
                 controller.dirToAim = dir.normalized;
                 controller.wantsToAim = true;
-                controller.wantsToAction1 = true;
+                controller.wantsToAbilityA = true;
 
                 return null;
             }
             public override void OnEnd() {
                 controller.wantsToAim = false;
-                controller.wantsToAction1 = false;
+                controller.wantsToAbilityA = false;
             }
         }
         public class Cooldown : _State {

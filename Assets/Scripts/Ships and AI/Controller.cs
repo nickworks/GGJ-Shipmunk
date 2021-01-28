@@ -18,8 +18,10 @@ public class Controller : MonoBehaviour {
     [HideInInspector] public Vector3 dirToMove;
     [HideInInspector] public bool wantsToAim;
     [HideInInspector] public Vector3 dirToAim;
-    [HideInInspector] public bool wantsToAction1;
-    [HideInInspector] public bool wantsToAction2;
+    [HideInInspector] public bool wantsToAbilityA;
+    [HideInInspector] public bool wantsToAbilityB;
+    [HideInInspector] public bool wantsToAbilityC;
+    [HideInInspector] public bool wantsToAbilityD;
 
     void Start() {
         Init();
