@@ -17,6 +17,7 @@ public class Spaceship : MonoBehaviour {
                 ship.DoDrive();
                 ship.DoAim();
                 ship.DoPhysTick();
+                ship.DoSlowDown();
 
                 return null;
             }
@@ -63,6 +64,9 @@ public class Spaceship : MonoBehaviour {
     }
     void DoPhysTick() {
         transform.position += velocity * Time.deltaTime;
+    }
+    void DoSlowDown(float amountLeftAfterSecond = .05f) {
+        velocity = AnimMath.Slide(velocity, Vector3.zero, amountLeftAfterSecond, Time.deltaTime);
     }
 
 }
