@@ -172,9 +172,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAuto: 0
+  kickbackImpulse: 10
   projectilePrefab: {fileID: 4616743461132739761, guid: 8f0d1147538cc404bbb44892c599fbe0, type: 3}
   splitAmount: 1
   splitAngle: 0
   bulletsPerSecond: 0.5
   randomWidth: 0
   randomAngle: 0
+  angleRotate: 0

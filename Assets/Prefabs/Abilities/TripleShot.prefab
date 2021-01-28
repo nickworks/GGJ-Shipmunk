@@ -171,9 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f45762e301ddf498a7a9964fd2774a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAuto: 0
+  kickbackImpulse: 1
   projectilePrefab: {fileID: 4616743461132739761, guid: 72eb4863d10a5804c9396ca132f756ca, type: 3}
   splitAmount: 3
   splitAngle: 10
   bulletsPerSecond: 5
   randomWidth: 0
   randomAngle: 0
+  angleRotate: 0
