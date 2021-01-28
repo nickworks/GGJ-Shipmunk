@@ -9,15 +9,16 @@ public class Spaceship : MonoBehaviour {
 
     public Controller controller { get; private set; }
 
+    public Transform weaponArt;
+
     void Start() {
         controller = GetComponent<Controller>();
     }
-
     
     void Update() {
 
         if (controller.wantsToMove) AddForce(controller.dirToMove * speed * Time.deltaTime);
-
+        if (controller.wantsToAim) weaponArt.rotation = Quaternion.LookRotation(controller.dirToAim, Vector3.up);
         EulerPhysTick();
     }
 

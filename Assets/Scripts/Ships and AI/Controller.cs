@@ -14,12 +14,11 @@ public class Controller : MonoBehaviour {
     public Allegiance allegiance { get; protected set; }
     protected Spaceship ship;
 
-    public bool wantsToMove;
-    public Vector3 dirToMove;
-
-    public bool wantsToAim;
-    public bool wantsToAttack;
-    public Vector3 dirToAttack;
+    [HideInInspector] public bool wantsToMove;
+    [HideInInspector] public Vector3 dirToMove;
+    [HideInInspector] public bool wantsToAim;
+    [HideInInspector] public bool wantsToAttack;
+    [HideInInspector] public Vector3 dirToAim;
 
     void Start() {
         Init();

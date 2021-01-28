@@ -144,7 +144,7 @@ MonoBehaviour:
   dirToMove: {x: 0, y: 0, z: 0}
   wantsToAim: 0
   wantsToAttack: 0
-  dirToAttack: {x: 0, y: 0, z: 0}
+  dirToAim: {x: 0, y: 0, z: 0}
 --- !u!1 &409010876
 GameObject:
   m_ObjectHideFlags: 0
