@@ -15,8 +15,7 @@ public class Spaceship : MonoBehaviour {
         public class Moving : _State {
             public override _State Update() {
 
-                ship.engine.DoTick();
-                ship.weapon.DoTick();
+                ship.DoUpdateSubSystems();
                 ship.DoPhysTick();
                 ship.DoSlowDown();
 
@@ -35,15 +34,23 @@ public class Spaceship : MonoBehaviour {
     public States._State state { get; private set; }
     public _Engine engine { get; private set; }
     public _Weapon weapon { get; private set; }
-    public Transform weaponArt;
 
+    [HideInInspector]
+    public List<_ShipSystem> installedSubSystems = new List<_ShipSystem>();
+    public _ShipSystem[] prefabsToTest;
 
     void Start() {
         ships.Add(this);
 
         controller = GetComponent<Controller>();
-        engine = GetComponentInChildren<_Engine>();
-        weapon = GetComponentInChildren<_Weapon>();
+
+        // install _ShipSystems already on the prefab:
+        installedSubSystems.AddRange(GetComponentsInChildren<_ShipSystem>());
+
+        // test install:
+        foreach(_ShipSystem prefab in prefabsToTest)
+            if(prefab) Install(prefab);
+
     }
     void OnDestroy() {
         ships.Remove(this);
@@ -66,11 +73,24 @@ public class Spaceship : MonoBehaviour {
         force.y = 0;
         velocity += force;
     }
-    void DoPhysTick() {
+    public void Install(_ShipSystem prefab) {
+        if (prefab == null) return;
+        _ShipSystem sys = Instantiate(prefab, transform);
+
+        installedSubSystems.Add(sys);
+    }
+    public void Uninstall(_ShipSystem sys) {
+
+    }
+    private void DoPhysTick() {
         transform.localPosition += velocity * Time.deltaTime;
     }
-    void DoSlowDown(float amountLeftAfterSecond = .05f) {
+    private void DoSlowDown(float amountLeftAfterSecond = .05f) {
         velocity = AnimMath.Slide(velocity, Vector3.zero, amountLeftAfterSecond, Time.deltaTime);
+    }
+    private void DoUpdateSubSystems() {
+        foreach (_ShipSystem sys in installedSubSystems)
+            sys.DoTick();
     }
 
 }
