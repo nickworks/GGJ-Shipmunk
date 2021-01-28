@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spaceship : MonoBehaviour {
 
+    public static List<Spaceship> ships = new List<Spaceship>();
     public static class States {
         public class _State {
             protected Spaceship ship;
@@ -38,11 +39,16 @@ public class Spaceship : MonoBehaviour {
 
 
     void Start() {
+        ships.Add(this);
+
         controller = GetComponent<Controller>();
         engine = GetComponentInChildren<_Engine>();
         weapon = GetComponentInChildren<_Weapon>();
     }
-    
+    void OnDestroy() {
+        ships.Remove(this);
+    }
+
     void Update() {
 
         if (state == null) ChangeState(new States.Moving());
@@ -61,7 +67,7 @@ public class Spaceship : MonoBehaviour {
         velocity += force;
     }
     void DoPhysTick() {
-        transform.position += velocity * Time.deltaTime;
+        transform.localPosition += velocity * Time.deltaTime;
     }
     void DoSlowDown(float amountLeftAfterSecond = .05f) {
         velocity = AnimMath.Slide(velocity, Vector3.zero, amountLeftAfterSecond, Time.deltaTime);
