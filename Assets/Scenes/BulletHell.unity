@@ -128,6 +128,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3671810375067917211, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
   m_PrefabInstance: {fileID: 3671810375343228837}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &275323971 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3671810375067917287, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
+  m_PrefabInstance: {fileID: 3671810375343228837}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &275323972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +160,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 409010877}
-  - component: {fileID: 409010878}
   m_Layer: 0
   m_Name: Scroller
   m_TagString: Untagged
@@ -180,19 +184,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &409010878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409010876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b059768bd0563ba41a5d8e8119ed6853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: {x: 2, y: 0, z: 0}
 --- !u!1001 &422683896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,6 +566,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1330032357}
+  - component: {fileID: 1330032358}
   m_Layer: 0
   m_Name: Grid Plane
   m_TagString: Untagged
@@ -597,6 +589,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1330032358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330032356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b059768bd0563ba41a5d8e8119ed6853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMode: 0
+  scroller: {fileID: 409010877}
+  target: {fileID: 275323971}
+  scrollVelocity: {x: 0, y: 0, z: 0}
+  transitionLength: 1
 --- !u!1 &1491624074
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,7 +632,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491624074}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1431103, y: -18.8, z: 10.9}
+  m_LocalPosition: {x: 6.78, y: -18.8, z: 9.34}
   m_LocalScale: {x: 15.850517, y: 15.850517, z: 15.850517}
   m_Children: []
   m_Father: {fileID: 409010877}
