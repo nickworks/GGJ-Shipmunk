@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5661984599735748324}
   - component: {fileID: 4275613480186468484}
   m_Layer: 0
-  m_Name: Asteroid
+  m_Name: Asteroid1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   art: {fileID: 7726050791782945596}
+  texture: {fileID: 2800000, guid: bd851a49e4eda2f44bfd8c518ff11659, type: 3}
 --- !u!65 &4275613480186468484
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -653,7 +653,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f84c49fb0b5832746890794421cb4957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabAsteroid: {fileID: 1352769080371826829, guid: 8bf22397ed72c8b40828e77f05901320, type: 3}
+  prefabAsteroids:
+  - {fileID: 5661984599735748324, guid: 8bf22397ed72c8b40828e77f05901320, type: 3}
+  - {fileID: 5661984599735748324, guid: 7a6d673cb56e7ec4493b471658495d2e, type: 3}
+  - {fileID: 5661984599735748324, guid: b84b7bcb8ab1b7f4cbbff484cb7cc480, type: 3}
+  - {fileID: 5661984599735748324, guid: 19f19063d0dedb649bb19e448e57cf49, type: 3}
 --- !u!1001 &1425602099
 PrefabInstance:
   m_ObjectHideFlags: 0

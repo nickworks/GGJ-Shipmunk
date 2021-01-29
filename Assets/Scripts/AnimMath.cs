@@ -36,6 +36,12 @@ public static class AnimMath
         float p = (1 - Mathf.Pow(percentLeftAfter1Second, dt));
         return Lerp(val, target, p);
     }
+    public static Quaternion Slide(Quaternion val, Quaternion target, float percentLeftAfter1Second, float dt = -1) {
+        if (dt < 0) dt = Time.deltaTime;
+        float p = (1 - Mathf.Pow(percentLeftAfter1Second, dt));
+        return Quaternion.Lerp(val, target, p);
+    }
+
     public static void Spring(
         ref float val,
         ref float vel,

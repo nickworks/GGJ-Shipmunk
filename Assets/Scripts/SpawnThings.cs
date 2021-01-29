@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnThings : MonoBehaviour {
 
-    public Transform prefabAsteroid;
+    public Asteroid[] prefabAsteroids;
 
     ScrollerController scroller;
     float spawnTimer = 1;
@@ -24,8 +24,10 @@ public class SpawnThings : MonoBehaviour {
             int n = Random.Range(1, 100);
             if (n < 66) pos = SpawnFromFront();
             else pos = SpawnFromRandom();
-            
-            Transform asteroid = Instantiate(prefabAsteroid, pos, Quaternion.identity, transform);
+
+            Asteroid prefab = prefabAsteroids[Random.Range(0,prefabAsteroids.Length)];
+            Asteroid asteroid = Instantiate(prefab, pos, Quaternion.identity, transform);
+
             float impulse = Random.Range(5, 10);
             asteroid.GetComponent<Rigidbody>().AddForce(-pos.normalized * impulse, ForceMode.Impulse);
         }
