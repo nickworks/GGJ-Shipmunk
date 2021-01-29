@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class _Ability : _ShipSystem {
 
-
+    public Sprite sprite;
+    public string abilityName = "NAME ME";
 
     public bool abilityIsAutoFire = false;
     public float autoUsesPerSecond = 10;

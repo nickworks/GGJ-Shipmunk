@@ -77,10 +77,11 @@ public class Spaceship : MonoBehaviour {
 
     private _Engine engine;
     private List<_Passive> passiveSystems = new List<_Passive>();
-    private Dictionary<AbilitySlots, _Ability> abilitySystems = new Dictionary<AbilitySlots, _Ability>();
+    public Dictionary<AbilitySlots, _Ability> abilitySystems { get; private set; }
 
 
     void Start() {
+        abilitySystems = new Dictionary<AbilitySlots, _Ability>();
         ships.Add(this);
 
         controller = GetComponent<Controller>();
@@ -221,5 +222,4 @@ public class Spaceship : MonoBehaviour {
             sys.DoTick();
         
     }
-
 }

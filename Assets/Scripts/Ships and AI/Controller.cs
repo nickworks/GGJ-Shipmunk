@@ -12,7 +12,7 @@ public class Controller : MonoBehaviour {
     }
 
     public Allegiance allegiance { get; protected set; }
-    protected Spaceship ship;
+    public Spaceship ship { get; protected set; }
 
     [HideInInspector] public bool wantsToMove;
     [HideInInspector] public Vector3 dirToMove;

@@ -171,6 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f45762e301ddf498a7a9964fd2774a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  abilityName: Machine Gun
   abilityIsAutoFire: 1
   autoUsesPerSecond: 10
   abilityFiresOnRelease: 0

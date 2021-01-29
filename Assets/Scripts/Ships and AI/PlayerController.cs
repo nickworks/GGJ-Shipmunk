@@ -7,11 +7,20 @@ public class PlayerController : Controller {
     
     Camera cam;
     ScrollerController scroller;
+
+    public HUDController hudPrefab;
+    protected HUDController hud;
+
+    void OnDestroy() {
+        if(hud) Destroy(hud.gameObject);
+    }
     protected override void Init() {
         base.Init();
         scroller = FindObjectOfType<ScrollerController>();
         cam = Camera.main;
         allegiance = Allegiance.Player;
+        hud = Instantiate(hudPrefab);
+        hud.RebuildViews(this);
     }
     void Update() {
         InputMove();

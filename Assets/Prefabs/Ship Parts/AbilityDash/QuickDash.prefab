@@ -171,6 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050b80b59bfc13c42a3214003584a9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  abilityName: Quick Dash
   abilityIsAutoFire: 0
   autoUsesPerSecond: 10
   abilityFiresOnRelease: 0

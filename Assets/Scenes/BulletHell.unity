@@ -267,6 +267,7 @@ MonoBehaviour:
   wantsToAbilityB: 0
   wantsToAbilityC: 0
   wantsToAbilityD: 0
+  hudPrefab: {fileID: 5746012996466603467, guid: 485f6844cee17284aa02742d8b1fadef, type: 3}
 --- !u!1 &409010876
 GameObject:
   m_ObjectHideFlags: 0
