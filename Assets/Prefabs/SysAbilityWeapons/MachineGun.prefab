@@ -174,7 +174,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   abilityName: Machine Gun
   abilityIsAutoFire: 1
-  autoUsesPerSecond: 10
+  maxUsesPerSecond: 20
   abilityFiresOnRelease: 0
   abilityChargesUp: 1
   timeToCharge: 1
@@ -187,3 +187,6 @@ MonoBehaviour:
   randomWidth: 0.25
   randomAngle: 5
   angleRotate: 0
+  potencyScaleDamage: 1
+  potencyScaleSpeed: 1
+  potencyScaleSize: 1

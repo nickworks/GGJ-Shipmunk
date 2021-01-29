@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 6358419369591008742}
   - component: {fileID: 8542800949936254544}
   m_Layer: 0
-  m_Name: BlackHoleLauncher
+  m_Name: BlackHoleBubbler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,18 +172,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  abilityName: Singularity Generator
-  abilityIsAutoFire: 0
-  autoUsesPerSecond: 10
-  abilityFiresOnRelease: 1
-  abilityChargesUp: 1
+  abilityName: Black Hole Bubbler
+  abilityIsAutoFire: 1
+  maxUsesPerSecond: 3
+  abilityFiresOnRelease: 0
+  abilityChargesUp: 0
   timeToCharge: 2
-  chargeScalesPotency: 1
+  chargeScalesPotency: 0
   chargeMaxPotencyMultiplier: 10
   kickbackImpulse: 10
   projectilePrefab: {fileID: 4616743461132739761, guid: 8f0d1147538cc404bbb44892c599fbe0, type: 3}
   splitAmount: 1
   splitAngle: 0
   randomWidth: 0
-  randomAngle: 0
+  randomAngle: 10
   angleRotate: 0

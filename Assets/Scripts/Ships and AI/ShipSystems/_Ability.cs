@@ -8,8 +8,8 @@ public class _Ability : _ShipSystem {
     public string abilityName = "NAME ME";
 
     public bool abilityIsAutoFire = false;
-    public float autoUsesPerSecond = 10;
-    protected float timerForAutofire = 0;
+    public float maxUsesPerSecond = 10;
+    protected float timerCooldown = 0;
 
     public bool abilityFiresOnRelease = false;
     public bool abilityChargesUp = false;
@@ -26,7 +26,7 @@ public class _Ability : _ShipSystem {
     }
 
     public void DoTick(Spaceship.AbilitySlots currentSlot) {
-        if (timerForAutofire > 0) timerForAutofire -= Time.deltaTime;
+        if (timerCooldown > 0) timerCooldown -= Time.deltaTime;
         
         if (ship.controller.wantsToAim) transform.rotation = Quaternion.LookRotation(ship.controller.dirToAim, Vector3.up);
         
@@ -39,36 +39,28 @@ public class _Ability : _ShipSystem {
 
         if (doIt) {
             timerForChargeUp += Time.deltaTime;
-            bool shoot = hasLetOff || (abilityIsAutoFire && timerForAutofire <= 0);
-
+            bool shoot = (abilityIsAutoFire || hasLetOff);
             if (abilityFiresOnRelease) shoot = false;
             if (abilityChargesUp && timerForChargeUp < timeToCharge) {
-                bool fireAnyway = (chargeScalesPotency && abilityIsAutoFire);
-                if (!fireAnyway) { 
-                    shoot = false;
-                    timerForAutofire = 0;
-                }
+                shoot = (chargeScalesPotency && abilityIsAutoFire);
             }
-            if (shoot) { 
-                timerForAutofire = 1 / autoUsesPerSecond;
-                Do();
-            }
+            if (shoot) Do();
             
             hasLetOff = false;
         } else if (!hasLetOff) { 
             if (abilityFiresOnRelease) Do();
             hasLetOff = true;
             timerForChargeUp = 0;
-            timerForAutofire = 0;
         }
     }
     private void Do() {
-        if (chargeScalesPotency) {
-            float s = AnimMath.Lerp(1, chargeMaxPotencyMultiplier, chargedUpPercent);
-            DoAbility(s);
-        } else {
-            DoAbility(1);
-        }
+
+        if (timerCooldown > 0) return;
+        timerCooldown = 1 / maxUsesPerSecond;
+
+        float s = (chargeScalesPotency) ? AnimMath.Lerp(1, chargeMaxPotencyMultiplier, chargedUpPercent) : 1;
+        
+        DoAbility(s);
     }
     virtual public void DoAbility(float mult = 1) {
 

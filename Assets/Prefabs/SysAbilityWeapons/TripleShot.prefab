@@ -174,7 +174,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   abilityName: Triple Shot
   abilityIsAutoFire: 0
-  autoUsesPerSecond: 10
+  maxUsesPerSecond: 3
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1
@@ -187,3 +187,6 @@ MonoBehaviour:
   randomWidth: 0
   randomAngle: 0
   angleRotate: 0
+  potencyScaleDamage: 1
+  potencyScaleSpeed: 1
+  potencyScaleSize: 1

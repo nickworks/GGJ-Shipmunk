@@ -174,7 +174,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   abilityName: Sunflower
   abilityIsAutoFire: 1
-  autoUsesPerSecond: 5
+  maxUsesPerSecond: 5
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1
@@ -187,3 +187,6 @@ MonoBehaviour:
   randomWidth: 0
   randomAngle: 0
   angleRotate: 90
+  potencyScaleDamage: 1
+  potencyScaleSpeed: 1
+  potencyScaleSize: 1

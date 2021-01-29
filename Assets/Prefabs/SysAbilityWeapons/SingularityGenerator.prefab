@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 6358419369591008742}
   - component: {fileID: 8542800949936254544}
   m_Layer: 0
-  m_Name: MineLauncher
+  m_Name: SingularityGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,21 +172,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  abilityName: Mines Launcher
+  abilityName: Singularity Generator
   abilityIsAutoFire: 0
-  maxUsesPerSecond: 5
-  abilityFiresOnRelease: 0
-  abilityChargesUp: 0
-  timeToCharge: 1
-  chargeScalesPotency: 0
-  chargeMaxPotencyMultiplier: 2
-  kickbackImpulse: 0.5
-  projectilePrefab: {fileID: 4616743461132739761, guid: eab0630821562ff448a3af3d7589ce99, type: 3}
+  maxUsesPerSecond: 1
+  abilityFiresOnRelease: 1
+  abilityChargesUp: 1
+  timeToCharge: 2
+  chargeScalesPotency: 1
+  chargeMaxPotencyMultiplier: 10
+  kickbackImpulse: 10
+  projectilePrefab: {fileID: 4616743461132739761, guid: 8f0d1147538cc404bbb44892c599fbe0, type: 3}
   splitAmount: 1
   splitAngle: 0
-  randomWidth: 0.25
-  randomAngle: 10
+  randomWidth: 0
+  randomAngle: 0
   angleRotate: 0
   potencyScaleDamage: 1
-  potencyScaleSpeed: 1
+  potencyScaleSpeed: 0.25
   potencyScaleSize: 1

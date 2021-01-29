@@ -11,10 +11,11 @@ public class Projectile : MonoBehaviour {
     public Controller.Allegiance allegiance;
     public bool destroyOnDoDamage = true;
     private float damageMult = 1;
-    public void InitBullet(Controller.Allegiance allegiance, float damageMult = 1) {
+    public void InitBullet(Controller.Allegiance allegiance, float damageMult = 1, float speedMult = 1, float sizeMult = 1) {
         this.allegiance = allegiance;
         this.damageMult = damageMult;
-        GetComponent<Rigidbody>().velocity = transform.forward * baseSpeed;
+        GetComponent<Rigidbody>().velocity = transform.forward * baseSpeed * speedMult;
+        transform.localScale *= sizeMult;
     }
     
     // Update is called once per frame

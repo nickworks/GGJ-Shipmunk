@@ -43,14 +43,14 @@ public class Spaceship : MonoBehaviour {
                 this.distance = distance;
             }
             public override _State Update() {
-
                 ship.DoUpdateSubSystems();
-
+                if(DoDashTick()) return new Moving();
+                return null;
+            }
+            private bool DoDashTick() {
                 animTimer += Time.deltaTime;
                 ship.transform.localPosition = AnimMath.Lerp(start, end, animTimer / time, true);
-                if (animTimer >= time) return new Moving();
-
-                return null;
+                return (animTimer >= time);
             }
             public override void OnStart(Spaceship ship) {
                 base.OnStart(ship);
@@ -195,6 +195,7 @@ public class Spaceship : MonoBehaviour {
     public void Uninstall(_ShipSystem sys) {
 
     }
+
     private void DoPhysTick() {
         transform.localPosition += velocity * Time.deltaTime;
     }

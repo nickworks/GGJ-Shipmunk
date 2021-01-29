@@ -16,6 +16,10 @@ public class ProjectileWeapon : _Ability {
     public float angleRotate = 0;
     private float angleOffset = 0;
 
+    public float potencyScaleDamage = 1;
+    public float potencyScaleSpeed = 1;
+    public float potencyScaleSize = 1;
+
     void Update() {
         angleOffset += angleRotate * Time.deltaTime;
     }
@@ -37,9 +41,8 @@ public class ProjectileWeapon : _Ability {
             Vector3 offRight = Vector3.Cross(dir, Vector3.up) * Random.Range(-randomWidth, randomWidth);
 
             Projectile p = Instantiate(projectilePrefab, transform.position + offRight, Quaternion.LookRotation(dir, Vector3.up));
-            p.InitBullet(ship.controller.allegiance, mult);
+            p.InitBullet(ship.controller.allegiance, mult * potencyScaleDamage, mult * potencyScaleSpeed, mult * potencyScaleSize);
         }
-        
     }
     Vector3 yawToDir(float degrees) {
         float radians = degrees * Mathf.Deg2Rad;
