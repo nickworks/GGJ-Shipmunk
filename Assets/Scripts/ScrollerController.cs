@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class ScrollerController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ScrollerController : MonoBehaviour
     public CameraMode currentMode = CameraMode.Ortho;
     
     private Camera cam;
+    private PostProcessVolume postProcess;
     public Transform thingToFollow;
     public Transform thingFollowing;
     
@@ -25,6 +27,8 @@ public class ScrollerController : MonoBehaviour
 
     private void Start() {
         cam = GetComponentInChildren<Camera>();
+        postProcess = cam.GetComponent<PostProcessVolume>();
+        
     }
 
     void Update() {
@@ -63,6 +67,8 @@ public class ScrollerController : MonoBehaviour
         Vector3 pos = cam.transform.localPosition;
         pos.z = -zoom / Mathf.Tan(degrees * Mathf.Deg2Rad / 2);
         cam.transform.localPosition = pos;
+
+        if (postProcess) postProcess.weight = AnimMath.Lerp(1, 0.25f, 1-(1-p)*(1-p));
 
         if (thingToFollow && thingFollowing) { // ease towards target:
             Vector3 lerpedPosition = Vector3.Lerp(transform.position, thingToFollow.position, p);
