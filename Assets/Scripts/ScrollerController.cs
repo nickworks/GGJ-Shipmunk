@@ -6,11 +6,11 @@ using UnityEngine.Rendering.PostProcessing;
 public class ScrollerController : MonoBehaviour
 {
     public enum CameraMode {
-        Ortho,
-        Persp
+        Scrolling,
+        FreeRoam
     }
 
-    public CameraMode currentMode = CameraMode.Ortho;
+    public CameraMode currentMode = CameraMode.Scrolling;
     
     private Camera cam;
     private PostProcessVolume postProcess;
@@ -28,16 +28,15 @@ public class ScrollerController : MonoBehaviour
     private void Start() {
         cam = GetComponentInChildren<Camera>();
         postProcess = cam.GetComponent<PostProcessVolume>();
-        
     }
 
     void Update() {
 
-        if(Input.GetButtonDown("Jump")) currentMode = (currentMode == CameraMode.Ortho) ? CameraMode.Persp : CameraMode.Ortho;
+        if(Input.GetButtonDown("Jump")) currentMode = (currentMode == CameraMode.Scrolling) ? CameraMode.FreeRoam : CameraMode.Scrolling;
 
         // scroll:
-        Vector3 targetVelocity = (currentMode == CameraMode.Ortho) ? scrollVelocity : Vector3.zero;
-        actualVelocity = AnimMath.Slide(actualVelocity, targetVelocity, 0.05f, Time.deltaTime);
+        Vector3 targetVelocity = (currentMode == CameraMode.Scrolling) ? scrollVelocity : Vector3.zero;
+        actualVelocity = AnimMath.Slide(actualVelocity, targetVelocity, 0.01f, Time.deltaTime);
         transform.position += actualVelocity * Time.deltaTime;
 
         // dolly/track camera:
@@ -48,8 +47,8 @@ public class ScrollerController : MonoBehaviour
 
         if (cam == null) return;
 
-        if (currentMode == CameraMode.Ortho) transitionTimer -= Time.deltaTime;
-        if (currentMode == CameraMode.Persp) transitionTimer += Time.deltaTime;
+        if (currentMode == CameraMode.Scrolling) transitionTimer -= Time.deltaTime;
+        if (currentMode == CameraMode.FreeRoam) transitionTimer += Time.deltaTime;
         float p = transitionTimer / transitionLength;
         if (p > 1) {
             p = 1;

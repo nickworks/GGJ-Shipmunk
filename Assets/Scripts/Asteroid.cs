@@ -19,14 +19,14 @@ public class Asteroid : MonoBehaviour {
         ApplyArt();
 
         // set rotational velocity:
-        float quarterRange = 15;
+        float quarterRange = 5;
         Vector3 vel = Vector3.zero;
         vel.y = Random.Range(-quarterRange, quarterRange) + Random.Range(-quarterRange, quarterRange);
         body.angularVelocity = vel;
         pitch = Random.Range(-30, -10);
 
         // set random scale:
-        transform.localScale = Vector3.one * Random.Range(1.5f, 5f);
+        transform.localScale = Vector3.one * Random.Range(.8f, 2f);
     }
 
     private void OnValidate() {

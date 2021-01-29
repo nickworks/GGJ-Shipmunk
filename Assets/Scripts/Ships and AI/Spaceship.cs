@@ -57,7 +57,7 @@ public class Spaceship : MonoBehaviour {
 
                 start = ship.transform.localPosition;
                 end = start + ship.controller.dirToMove * distance;
-                ship.velocity = .25f * ship.controller.dirToMove * distance / time;
+                ship.velocity = .25f * ship.engine.transform.forward * distance / time;
             }
             public override void OnEnd() {
                 if (ship.controller.wantsToMove) {

@@ -27,7 +27,7 @@ public class PlayerController : Controller {
         wantsToAbilityD = axis3 < -.2f || Input.GetButton("Fire4");
     }
     private void LateUpdate() {
-        if(scroller.currentMode == ScrollerController.CameraMode.Ortho) ship.Clamp(scroller.min, scroller.max);
+        if(scroller.currentMode == ScrollerController.CameraMode.Scrolling) ship.Clamp(scroller.min, scroller.max);
     }
 
     private void InputMove() {

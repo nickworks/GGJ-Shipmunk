@@ -14,7 +14,7 @@ public class _Engine : _ShipSystem {
             
             ship.AddForce(transform.forward * strength * Time.deltaTime);
             Quaternion targetRot = Quaternion.LookRotation(ship.controller.dirToMove, Vector3.up);
-            transform.rotation = AnimMath.Slide(transform.rotation, targetRot, 0.001f);
+            transform.rotation = AnimMath.Slide(transform.rotation, targetRot, 0.0001f);
 
             ship.ClampVelocity(maxSpeed);
 
