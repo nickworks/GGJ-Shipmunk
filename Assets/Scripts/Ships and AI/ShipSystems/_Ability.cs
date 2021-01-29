@@ -17,7 +17,7 @@ public class _Ability : _ShipSystem {
     protected float timerForChargeUp = 0;
     public bool chargeScalesPotency = false;
     public float chargeMaxPotencyMultiplier = 2;
-    protected bool hasLetOff = false;
+    protected bool hasLetOff = true;
 
     public float chargedUpPercent {
         get {

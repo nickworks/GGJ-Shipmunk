@@ -173,8 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   abilityName: Sunflower
-  abilityIsAutoFire: 0
-  autoUsesPerSecond: 10
+  abilityIsAutoFire: 1
+  autoUsesPerSecond: 5
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1

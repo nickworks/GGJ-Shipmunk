@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
-{
+[RequireComponent(typeof(Rigidbody))]
+public class Projectile : MonoBehaviour {
     public float baseDamage = 10;
     public float baseSpeed = 1;
     public float baseLifeSpan = 4;
@@ -14,11 +14,11 @@ public class Projectile : MonoBehaviour
     public void InitBullet(Controller.Allegiance allegiance, float damageMult = 1) {
         this.allegiance = allegiance;
         this.damageMult = damageMult;
+        GetComponent<Rigidbody>().velocity = transform.forward * baseSpeed;
     }
     
     // Update is called once per frame
     void Update() {
-        transform.position += transform.forward * baseSpeed * Time.deltaTime;
         age += Time.deltaTime;
         if (age > baseLifeSpan) {
             Destroy(gameObject);
