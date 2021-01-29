@@ -10,6 +10,10 @@ public class CanBeDamaged : MonoBehaviour {
     private void Start() {
         controller = GetComponent<Controller>();
     }
+    public bool ShouldTakeDamage(Controller.Allegiance other) {
+        Controller.Allegiance myAllegiance = (controller ? controller.allegiance : allegiance);
+        return (other != myAllegiance);
+    }
 
     public void TakeDamage(float amt) {
         if (amt <= 0) return;
@@ -17,13 +21,5 @@ public class CanBeDamaged : MonoBehaviour {
 
         if (hp <= 0) Destroy(gameObject);
     }
-    private void OnTriggerEnter(Collider other) {
-        Projectile p = other.GetComponent<Projectile>();
-        if (p) {
-            Controller.Allegiance myAllegiance = (controller ? controller.allegiance : allegiance);
-            if (p.allegiance == myAllegiance) return;
-            TakeDamage(p.baseDamage);
-            Destroy(p.gameObject);
-        }
-    }
+    
 }

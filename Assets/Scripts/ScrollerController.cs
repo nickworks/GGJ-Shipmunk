@@ -12,10 +12,11 @@ public class ScrollerController : MonoBehaviour
     public CameraMode currentMode = CameraMode.Ortho;
     
     private Camera cam;
-    public Transform scroller;
-    public Transform target;
+    public Transform thingToFollow;
+    public Transform thingFollowing;
     
     public Vector3 scrollVelocity = new Vector3();
+    private Vector3 actualVelocity = new Vector3();
 
     public float transitionLength = 1;
     private float transitionTimer = 0;
@@ -28,8 +29,12 @@ public class ScrollerController : MonoBehaviour
 
     void Update() {
 
+        if(Input.GetButtonDown("Jump")) currentMode = (currentMode == CameraMode.Ortho) ? CameraMode.Persp : CameraMode.Ortho;
+
         // scroll:
-        scroller.position += scrollVelocity * Time.deltaTime;
+        Vector3 targetVelocity = (currentMode == CameraMode.Ortho) ? scrollVelocity : Vector3.zero;
+        actualVelocity = AnimMath.Slide(actualVelocity, targetVelocity, 0.05f, Time.deltaTime);
+        transform.position += actualVelocity * Time.deltaTime;
 
         // dolly/track camera:
         DollyTrackCamera();
@@ -59,9 +64,9 @@ public class ScrollerController : MonoBehaviour
         pos.z = -zoom / Mathf.Tan(degrees * Mathf.Deg2Rad / 2);
         cam.transform.localPosition = pos;
 
-        if (target) { // ease towards target
-            Vector3 lerpedPosition = Vector3.Lerp(transform.position, target.position, p);
-            transform.position = AnimMath.Slide(transform.position, lerpedPosition, 0.5f, Time.deltaTime);
+        if (thingToFollow && thingFollowing) { // ease towards target:
+            Vector3 lerpedPosition = Vector3.Lerp(transform.position, thingToFollow.position, p);
+            thingFollowing.position = AnimMath.Slide(thingFollowing.position, lerpedPosition, 0.05f, Time.deltaTime);
         }
     }
 

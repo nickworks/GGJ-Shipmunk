@@ -10,16 +10,25 @@ public class Projectile : MonoBehaviour
     float age = 0;
     public Controller.Allegiance allegiance;
 
-    public void InitBullet(Controller.Allegiance allegiance) {
+    private float damageMult = 1;
+    public void InitBullet(Controller.Allegiance allegiance, float damageMult = 1) {
         this.allegiance = allegiance;
+        this.damageMult = damageMult;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         transform.position += transform.forward * baseSpeed * Time.deltaTime;
         age += Time.deltaTime;
         if (age > baseLifeSpan) {
+            Destroy(gameObject);
+        }
+    }
+    private void OnTriggerEnter(Collider other) {
+        CanBeDamaged injurableBody = other.GetComponent<CanBeDamaged>();
+        if (injurableBody && injurableBody.ShouldTakeDamage(allegiance)) {
+            injurableBody.TakeDamage(baseDamage * damageMult);
             Destroy(gameObject);
         }
     }

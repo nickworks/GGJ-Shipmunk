@@ -24,7 +24,6 @@ public class Spaceship : MonoBehaviour {
 
                 ship.DoUpdateSubSystems();
                 ship.DoPhysTick();
-                ship.DoSlowDown();
                 
                 return null;
             }
@@ -58,7 +57,12 @@ public class Spaceship : MonoBehaviour {
 
                 start = ship.transform.localPosition;
                 end = start + ship.controller.dirToMove * distance;
-                ship.velocity = ship.controller.dirToMove * distance / time;
+                ship.velocity = .25f * ship.controller.dirToMove * distance / time;
+            }
+            public override void OnEnd() {
+                if (ship.controller.wantsToMove) {
+                    ship.AddForce(ship.controller.dirToMove * 10);
+                }
             }
         }
     }
@@ -193,7 +197,12 @@ public class Spaceship : MonoBehaviour {
     private void DoPhysTick() {
         transform.localPosition += velocity * Time.deltaTime;
     }
-    private void DoSlowDown(float amountLeftAfterSecond = .05f) {
+    public void ClampVelocity(float speed) {
+        if(velocity.sqrMagnitude > speed * speed){
+            velocity = velocity.normalized * speed;
+        }
+    }
+    public void DoSlowDown(float amountLeftAfterSecond = .05f) {
         velocity = AnimMath.Slide(velocity, Vector3.zero, amountLeftAfterSecond, Time.deltaTime);
     }
     /*

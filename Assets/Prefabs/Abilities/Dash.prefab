@@ -171,6 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050b80b59bfc13c42a3214003584a9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAuto: 0
+  abilityIsAutoFire: 0
+  autoUsesPerSecond: 10
+  abilityFiresOnRelease: 0
+  abilityChargesUp: 0
+  timeToCharge: 1
+  chargeScalesPotency: 0
+  chargeMaxPotencyMultiplier: 2
   distance: 10
-  time: 0.5
+  time: 0.25

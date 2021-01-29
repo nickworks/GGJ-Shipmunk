@@ -6,34 +6,35 @@ public class SpawnThings : MonoBehaviour {
 
     public Asteroid[] prefabAsteroids;
 
-    ScrollerController scroller;
+    public ScrollerController scroller;
     float spawnTimer = 1;
-
-    void Start() {
-        scroller = GetComponent<ScrollerController>();
-    }
 
     void Update() {
 
         if (spawnTimer > 0) spawnTimer -= Time.deltaTime;
         else {
             spawnTimer = Random.Range(0.1f, 3f);
-
-            Vector3 pos = Vector3.zero;
-
-            int n = Random.Range(1, 100);
-            if (n < 66) pos = SpawnFromFront();
-            else pos = SpawnFromRandom();
-
-            Asteroid prefab = prefabAsteroids[Random.Range(0,prefabAsteroids.Length)];
-            Asteroid asteroid = Instantiate(prefab, pos, Quaternion.identity, transform);
-
-            float impulse = Random.Range(5, 10);
-            asteroid.GetComponent<Rigidbody>().AddForce(-pos.normalized * impulse, ForceMode.Impulse);
+            SpawnAThing();
         }
     }
+
+    private void SpawnAThing() {
+        Vector3 pos = Vector3.zero;
+
+        int n = Random.Range(1, 100);
+        if (n < 66) pos = SpawnFromFront();
+        else pos = SpawnFromRandom();
+
+        Asteroid prefab = prefabAsteroids[Random.Range(0, prefabAsteroids.Length)];
+        Asteroid asteroid = Instantiate(prefab, pos, Quaternion.identity, scroller.transform);
+
+        Vector3 dir = -(pos - scroller.transform.position).normalized;
+        float impulse = Random.Range(5, 10);
+        asteroid.GetComponent<Rigidbody>().AddForce(dir * impulse, ForceMode.Impulse);
+    }
+
     /// <summary>
-    /// Returns a spawn point in local coordinates
+    /// Returns a spawn point in world coordinates
     /// </summary>
     /// <param name="randomDegrees"></param>
     /// <returns></returns>
@@ -49,12 +50,12 @@ public class SpawnThings : MonoBehaviour {
 
         Vector3 dir = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
 
-        dir = -dir.normalized;
+        dir = dir.normalized;
 
         dir.x *= (max.x - min.x);
         dir.z *= (max.z - min.z);
 
-        return dir;
+        return dir + scroller.transform.position;
     }
     Vector3 SpawnFromRandom() {
 
@@ -68,6 +69,6 @@ public class SpawnThings : MonoBehaviour {
         dir.x = dir2d.x * (max.x - min.x);
         dir.z = dir2d.y * (max.z - min.z);
 
-        return dir;
+        return dir + scroller.transform.position;
     }
 }

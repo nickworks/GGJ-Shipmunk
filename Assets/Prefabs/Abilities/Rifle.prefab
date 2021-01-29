@@ -171,12 +171,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f45762e301ddf498a7a9964fd2774a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChargedUp: 0
+  timeToCharge: 1
   isAuto: 1
+  autoUsesPerSecond: 5
   kickbackImpulse: 0.5
   projectilePrefab: {fileID: 4616743461132739761, guid: eab0630821562ff448a3af3d7589ce99, type: 3}
   splitAmount: 1
   splitAngle: 0
-  bulletsPerSecond: 5
   randomWidth: 0.25
   randomAngle: 10
   angleRotate: 0
