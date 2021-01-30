@@ -6,6 +6,7 @@ public class SpawnThings : MonoBehaviour {
 
     public Asteroid[] prefabAsteroids;
     public PickupPowerup[] prefabPowerups;
+    public AIController[] prefabEnemies;
 
     public _Ability[] prefabAbilities;
 
@@ -37,7 +38,8 @@ public class SpawnThings : MonoBehaviour {
 
         int n = Random.Range(1, 100);
 
-        if (n < 90) prefab = PickRandom(prefabAsteroids);
+        if (n < 60) prefab = PickRandom(prefabAsteroids);
+        else if (n < 90) prefab = PickRandom(prefabEnemies);
         else prefab = PickRandom(prefabPowerups);
 
         if(prefab) SpawnAThing(prefab);

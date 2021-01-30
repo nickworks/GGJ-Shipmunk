@@ -27,11 +27,16 @@ public class AIController : Controller {
 
                 if (!controller.attackTarget) return new Idle();
 
-                Vector3 dir = (controller.attackTarget.position - controller.ship.transform.position);
+                Vector3 dif = (controller.attackTarget.position - controller.ship.transform.position);
+                float dis = dif.magnitude;
+                Vector3 dir = dif / dis;
 
-                controller.dirToAim = dir.normalized;
+                controller.dirToAim = dir;
                 controller.wantsToAim = true;
                 controller.wantsToAbilityA = true;
+
+                controller.dirToMove = dir;
+                controller.wantsToMove = true;
 
                 return null;
             }
