@@ -11,10 +11,10 @@ public class Asteroid : MonoBehaviour {
     float lifespan = 10;
     float age = 0;
     float pitch = 60;
-    Rigidbody body;
+    SpaceRigidbody body;
     
     void Start() {
-        body = GetComponent<Rigidbody>();
+        body = GetComponent<SpaceRigidbody>();
 
         ApplyArt();
 
@@ -22,7 +22,7 @@ public class Asteroid : MonoBehaviour {
         float quarterRange = 5;
         Vector3 vel = Vector3.zero;
         vel.y = Random.Range(-quarterRange, quarterRange) + Random.Range(-quarterRange, quarterRange);
-        body.angularVelocity = vel;
+        body.SetAngularVelocity(vel);
         pitch = Random.Range(-30, -10);
 
         // set random scale:
@@ -44,7 +44,7 @@ public class Asteroid : MonoBehaviour {
     }
 
     void Update() {
-        age += Time.deltaTime;
+        age += Time.deltaTime * body.timeScale;
         if (age > lifespan) Destroy(gameObject);
         art.rotation = Quaternion.Euler(pitch,0,0) * transform.rotation * Quaternion.Euler(90, 0, 0);
     }

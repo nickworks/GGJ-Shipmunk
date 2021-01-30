@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class SlowField : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
-        Spaceship ship = other.GetComponent<Spaceship>();
-        if (ship) {
-            
-        }
+        HealthAndEffects hp = other.GetComponent<HealthAndEffects>();
+        if(hp) hp.AddCondition(new HealthAndEffects.Condition.Slow());
     }
     
 }

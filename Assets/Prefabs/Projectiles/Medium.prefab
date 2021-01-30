@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 6538913230167036364}
   - component: {fileID: 6538913230167036365}
   - component: {fileID: 4616743461132739761}
+  - component: {fileID: 5555844333787417251}
+  - component: {fileID: 8953124896857267839}
   m_Layer: 0
   m_Name: Medium
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,8 +110,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2d2176fb5692840ab20d2a9dd1c59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 20
+  affect: 0
+  affectAmount: 10
   baseSpeed: 20
   baseLifeSpan: 2
   allegiance: 0
   destroyOnDoDamage: 1
+--- !u!114 &5555844333787417251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538913230167036367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf387e338661fc84798f04e16b4bad2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeScale: 1
+--- !u!114 &8953124896857267839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538913230167036367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106f5d1ed4b798b4a92ec2841616be52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  allegiance: 0
