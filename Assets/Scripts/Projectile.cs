@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour {
         SlowCondition,
         PoisonCondition,
         Gravity,
+        Knockback
     }
     public Affect affect = Affect.DamageOnHit;
     public int affectAmount = 10;
