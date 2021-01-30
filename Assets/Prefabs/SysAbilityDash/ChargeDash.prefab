@@ -174,11 +174,12 @@ MonoBehaviour:
   sprite: {fileID: 0}
   abilityName: Charge Dash
   abilityIsAutoFire: 0
-  autoUsesPerSecond: 10
+  maxUsesPerSecond: 10
   abilityFiresOnRelease: 1
   abilityChargesUp: 1
   timeToCharge: 1
   chargeScalesPotency: 1
-  chargeMaxPotencyMultiplier: 2
   distance: 5
   time: 0.1
+  chargeMinDistanceMult: 1
+  chargeMaxDistanceMult: 4

@@ -179,7 +179,6 @@ MonoBehaviour:
   abilityChargesUp: 1
   timeToCharge: 2
   chargeScalesPotency: 1
-  chargeMaxPotencyMultiplier: 10
   kickbackImpulse: 10
   projectilePrefab: {fileID: 4616743461132739761, guid: 8f0d1147538cc404bbb44892c599fbe0, type: 3}
   splitAmount: 1
@@ -187,6 +186,9 @@ MonoBehaviour:
   randomWidth: 0
   randomAngle: 0
   angleRotate: 0
-  potencyScaleDamage: 1
-  potencyScaleSpeed: 0.25
-  potencyScaleSize: 1
+  chargeMinSize: 1
+  chargeMaxSize: 10
+  chargeMinSpeed: 2
+  chargeMaxSpeed: 4
+  chargeMinStrength: 1
+  chargeMaxStrength: 10

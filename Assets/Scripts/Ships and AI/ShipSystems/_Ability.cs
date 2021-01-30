@@ -16,7 +16,6 @@ public class _Ability : _ShipSystem {
     public float timeToCharge = 1;
     protected float timerForChargeUp = 0;
     public bool chargeScalesPotency = false;
-    public float chargeMaxPotencyMultiplier = 2;
     protected bool hasLetOff = true;
 
     public float chargedUpPercent {
@@ -58,8 +57,7 @@ public class _Ability : _ShipSystem {
         if (timerCooldown > 0) return;
         timerCooldown = 1 / maxUsesPerSecond;
 
-        float s = (chargeScalesPotency) ? AnimMath.Lerp(1, chargeMaxPotencyMultiplier, chargedUpPercent) : 1;
-        
+        float s = (chargeScalesPotency) ? chargedUpPercent : 1;
         DoAbility(s);
     }
     virtual public void DoAbility(float mult = 1) {

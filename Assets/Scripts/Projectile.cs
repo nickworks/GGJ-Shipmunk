@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpaceRigidbody))]
-[RequireComponent(typeof(HealthAndEffects))]
 public class Projectile : MonoBehaviour {
 
     public enum Affect {
@@ -20,7 +19,7 @@ public class Projectile : MonoBehaviour {
     public float baseLifeSpan = 4;
     float age = 0;
     
-    public bool destroyOnDoDamage = true;
+    public bool destroyOnHit = true;
     [Tooltip("When using destroy-on-hit, use large numbers (1+). Otherwise, use small numbers (.1 - .5).")]
     public float affectDuration = 1;
     protected float cooldownToNextHit = 0;
@@ -29,17 +28,14 @@ public class Projectile : MonoBehaviour {
     private float speedMult = 1;
 
     public SpaceRigidbody body { get; private set; }
-    public HealthAndEffects health { get; private set; }
-    private List<HealthAndEffects> overlappedObjects = new List<HealthAndEffects>();
+    private List<SpaceRigidbody> overlappedObjects = new List<SpaceRigidbody>();
 
     public void InitBullet(Controller.Allegiance allegiance, float damageMult = 1, float speedMult = 1, float sizeMult = 1) {
 
         body = GetComponent<SpaceRigidbody>();
-        health = GetComponent<HealthAndEffects>();
-
         body.SetVelocity(transform.forward * baseSpeed * speedMult);
 
-        health.allegiance = allegiance;
+        body.allegiance = allegiance;
         this.damageMult = damageMult;
         this.speedMult = speedMult;
         transform.localScale *= sizeMult;
@@ -49,7 +45,7 @@ public class Projectile : MonoBehaviour {
         if (age > baseLifeSpan) {
             Destroy(gameObject);
         }
-        if (!destroyOnDoDamage) {
+        if (!destroyOnHit) {
             cooldownToNextHit -= Time.deltaTime;
             if(cooldownToNextHit <= 0) {
                 cooldownToNextHit = affectDuration;
@@ -61,14 +57,13 @@ public class Projectile : MonoBehaviour {
         overlappedObjects = null;
     }
     private void HitAll() {
-        print("hit " + overlappedObjects.Count);
         for (int i = overlappedObjects.Count - 1; i >= 0; i--) {
-            HealthAndEffects body = overlappedObjects[i];
+            SpaceRigidbody body = overlappedObjects[i];
             if (body) HitSingle(body);
             else overlappedObjects.RemoveAt(i);
         }
     }
-    private void HitSingle(HealthAndEffects injurableBody) {
+    private void HitSingle(SpaceRigidbody injurableBody) {
 
         int dmg = (int)(affectAmount * damageMult);
 
@@ -77,24 +72,22 @@ public class Projectile : MonoBehaviour {
                 injurableBody.TakeDamage(dmg);
                 break;
             case Affect.SlowCondition:
-                print($"adding SLOW affect -- dmg: {dmg} duration: {affectDuration}");
-                injurableBody.AddCondition(new HealthAndEffects.Condition.Slow(dmg, affectDuration));
+                injurableBody.AddCondition(new SpaceRigidbody.Condition.Slow(dmg, affectDuration));
                 break;
             case Affect.PoisonCondition:
-                injurableBody.AddCondition(new HealthAndEffects.Condition.Poison(dmg, affectDuration));
+                injurableBody.AddCondition(new SpaceRigidbody.Condition.Poison(dmg, affectDuration));
                 break;
             case Affect.Gravity:
-                if (!injurableBody.body) return;
                 Vector3 dir = (transform.position - injurableBody.transform.position).normalized;
-                injurableBody.body.AddForce(affectAmount * dir);
+                injurableBody.AddForce(affectAmount * dir);
                 break;
         }
     }
     private void OnTriggerEnter(Collider other) {
 
-        if (ShouldIgnoreCollider(other, out HealthAndEffects injurableBody)) return;
+        if (ShouldIgnoreCollider(other, out SpaceRigidbody injurableBody)) return;
 
-        if (destroyOnDoDamage) {
+        if (destroyOnHit) {
             HitSingle(injurableBody);
             Destroy(gameObject);
         } else {
@@ -103,34 +96,13 @@ public class Projectile : MonoBehaviour {
     }
     private void OnTriggerExit(Collider other) {
 
-        if (ShouldIgnoreCollider(other, out HealthAndEffects injurableBody)) return;
+        if (ShouldIgnoreCollider(other, out SpaceRigidbody injurableBody)) return;
         overlappedObjects.Remove(injurableBody);
     }
-    bool ShouldIgnoreCollider(Collider c, out HealthAndEffects health) {
-        health = null;
+    bool ShouldIgnoreCollider(Collider c, out SpaceRigidbody otherBody) {
+        otherBody = null;
         if (!shouldAffectOtherProjectiles && c.tag == tag) return true;
-        health = c.GetComponent<HealthAndEffects>();
-        return (!health || health.IsFriendly(this.health.allegiance));
-    }
-    void OnTriggerStay(Collider other) {
-        /*
-        switch (affect) {
-            case Affect.DamageOnHit:
-            case Affect.SlowCondition:
-            case Affect.PoisonCondition:
-                break;
-            case Affect.DamagePerSecond:
-                HealthAndEffects injurableBody = other.GetComponent<HealthAndEffects>();
-                if (!injurableBody || injurableBody.IsFriendly(health.allegiance)) return;
-                injurableBody.TakeDamage(affectAmount * damageMult * Time.fixedDeltaTime);
-                break;
-            case Affect.Gravity:
-                SpaceRigidbody body = other.GetComponent<SpaceRigidbody>();
-                if (!body) return;
-                Vector3 dir = (transform.position - other.transform.position).normalized;
-                body.AddForce(affectAmount * dir);
-                break;
-        }
-        */
+        otherBody = c.GetComponent<SpaceRigidbody>();
+        return (!otherBody || otherBody.IsFriendly(this.body.allegiance));
     }
 }
