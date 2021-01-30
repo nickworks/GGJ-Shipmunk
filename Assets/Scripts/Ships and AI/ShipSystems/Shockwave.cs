@@ -5,6 +5,36 @@ using UnityEngine;
 public class Shockwave : _Ability {
     public float radius = 10;
     public float impulse = 400;
+    public LineRenderer artRing;
+
+    public float animLength = 0.5f;
+    protected float animTimer = 0;
+    protected bool animating = false;
+
+    public void Awake() {
+        StopAnim();
+    }
+    public void Update() {
+
+        if (animating && artRing) {
+            animTimer += Time.deltaTime;
+            float p = animTimer / animLength;
+
+            float pFinal = 1 - (1 - p) * (1 - p);
+
+            artRing.transform.localScale = Vector3.one * AnimMath.Lerp(0, radius, pFinal);
+            artRing.widthMultiplier = (1 - p) * (1 - p);
+            if (p > 1) {
+                p = 1;
+                StopAnim();
+            }
+        }
+    }
+    void StopAnim() {
+        artRing.gameObject.SetActive(false);
+        animating = false;
+        artRing.transform.localScale = Vector3.zero;
+    }
     public override void DoAbility(float mult = 1) {
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         foreach(Collider c in colliders) {
@@ -16,5 +46,8 @@ public class Shockwave : _Ability {
             float p = 1 - mag / radius;
             body.AddForce(d * impulse * p / mag);
         }
+        artRing.gameObject.SetActive(true);
+        animating = true;
+        animTimer = 0;
     }
 }
