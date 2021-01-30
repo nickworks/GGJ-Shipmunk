@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpaceRigidbody))]
 public class Spaceship : MonoBehaviour {
 
     public enum AbilitySlots {
@@ -71,6 +72,7 @@ public class Spaceship : MonoBehaviour {
     private Vector3 velocity;
 
     public Controller controller { get; private set; }
+    public SpaceRigidbody body { get; private set; }
     public States._State state { get; private set; }
 
     public _ShipSystem[] prefabsToAddAtRuntime;
@@ -79,12 +81,13 @@ public class Spaceship : MonoBehaviour {
     private List<_Passive> passiveSystems = new List<_Passive>();
     public Dictionary<AbilitySlots, _Ability> abilitySystems { get; private set; }
 
-
-    void Start() {
-        abilitySystems = new Dictionary<AbilitySlots, _Ability>();
-        ships.Add(this);
-
+    private void Awake() {
         controller = GetComponent<Controller>();
+        body = GetComponent<SpaceRigidbody>();
+        abilitySystems = new Dictionary<AbilitySlots, _Ability>();
+    }
+    void Start() {
+        ships.Add(this);
 
         // install _ShipSystems already on the prefab:
         _ShipSystem[] children = GetComponentsInChildren<_ShipSystem>();

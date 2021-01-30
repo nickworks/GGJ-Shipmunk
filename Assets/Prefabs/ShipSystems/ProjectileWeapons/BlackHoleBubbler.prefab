@@ -176,17 +176,19 @@ MonoBehaviour:
   abilityIsAutoFire: 1
   maxUsesPerSecond: 3
   abilityFiresOnRelease: 0
-  abilityChargesUp: 0
+  abilityChargesUp: 1
   timeToCharge: 2
-  chargeScalesPotency: 0
-  chargeMaxPotencyMultiplier: 10
+  chargeScalesPotency: 1
   kickbackImpulse: 1
   projectilePrefab: {fileID: 4616743461132739761, guid: 8f0d1147538cc404bbb44892c599fbe0, type: 3}
   splitAmount: 1
   splitAngle: 0
   randomWidth: 0
-  randomAngle: 30
+  randomAngle: 50
   angleRotate: 0
-  potencyScaleDamage: 1
-  potencyScaleSpeed: 1
-  potencyScaleSize: 1
+  chargeMinSize: 1
+  chargeMaxSize: 1
+  chargeMinSpeed: 1
+  chargeMaxSpeed: 2
+  chargeMinStrength: 1
+  chargeMaxStrength: 1

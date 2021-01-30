@@ -104,6 +104,12 @@ public class Projectile : MonoBehaviour {
         otherBody = null;
         if (!shouldAffectOtherProjectiles && c.tag == tag) return true;
         otherBody = c.GetComponent<SpaceRigidbody>();
-        return (!otherBody || otherBody.IsFriendly(this.body.allegiance));
+
+        // if this is gravity, affect the other particle
+        // even if the other particle is friendly?
+
+        if (affect == Affect.Gravity) return false;
+        if (!otherBody) return true;
+        return otherBody.IsFriendly(this.body.allegiance);
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ProjectileWeapon : _Ability {
 
-    
-
     public float kickbackImpulse = .1f;
     public Projectile projectilePrefab;
 
@@ -26,7 +24,7 @@ public class ProjectileWeapon : _Ability {
     public float chargeMaxStrength = 1;
 
     void Update() {
-        angleOffset += angleRotate * Time.deltaTime;
+        angleOffset += angleRotate * Time.deltaTime * ship.body.timeScale;
     }
 
     override public void DoAbility(float mult = 1) {
@@ -46,7 +44,8 @@ public class ProjectileWeapon : _Ability {
         // spawn 1 projectile per split:
         for (int i = 0; i < splitAmount; i++) {
 
-            Vector3 dir = yawToDir(yawAim + i * splitAngle);
+            float rand = Random.Range(-randomAngle, randomAngle);
+            Vector3 dir = yawToDir(yawAim + i * splitAngle + rand);
             Vector3 offRight = Vector3.Cross(dir, Vector3.up) * Random.Range(-randomWidth, randomWidth);
 
             Projectile p = Instantiate(projectilePrefab, transform.position + offRight, Quaternion.LookRotation(dir, Vector3.up));

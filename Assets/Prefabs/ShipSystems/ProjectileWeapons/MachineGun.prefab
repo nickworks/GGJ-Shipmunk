@@ -184,7 +184,7 @@ MonoBehaviour:
   splitAmount: 1
   splitAngle: 0
   randomWidth: 0.25
-  randomAngle: 5
+  randomAngle: 3
   angleRotate: 0
   chargeMinSize: 1
   chargeMaxSize: 1
