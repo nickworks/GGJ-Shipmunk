@@ -100,7 +100,7 @@ public class Spaceship : MonoBehaviour {
             if(prefab) SpawnAndInstall(prefab);
 
     }
-    public bool Install(_ShipSystem sys) {
+    private bool Install(_ShipSystem sys) {
         
         if (sys is _Engine) return Install((_Engine)sys);
         if (sys is _Passive) return Install((_Passive)sys);
@@ -108,11 +108,11 @@ public class Spaceship : MonoBehaviour {
 
         return false;
     }
-    public bool Install(_Passive sys) {
+    private bool Install(_Passive sys) {
         passiveSystems.Add(sys);
         return true;
     }
-    public bool Install(_Ability sys) {
+    private bool Install(_Ability sys) {
         AbilitySlots? slot = NextAbilitySlot();
         if (slot != null) {
             abilitySystems.Add((AbilitySlots)slot, sys);
@@ -120,7 +120,7 @@ public class Spaceship : MonoBehaviour {
         }
         return false;
     }
-    public bool Install(_Engine sys) {
+    private bool Install(_Engine sys) {
         try {
             _Engine prev = engine;
             engine = (_Engine)sys;
@@ -180,7 +180,12 @@ public class Spaceship : MonoBehaviour {
 
         _ShipSystem sys = Instantiate(prefab, transform); // spawn it
 
-        if (Install(sys)) return true; // try to install it
+        if (Install(sys)) {
+            if(controller is PlayerController) {
+                (controller as PlayerController).UpdateHUD();
+            }
+            return true; // try to install it
+        }
 
         Destroy(sys.gameObject); // delete it if unsuccessful
 

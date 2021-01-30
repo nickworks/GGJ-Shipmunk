@@ -5,32 +5,59 @@ using UnityEngine;
 public class SpawnThings : MonoBehaviour {
 
     public Asteroid[] prefabAsteroids;
+    public PickupPowerup[] prefabPowerups;
+
+    public _Ability[] prefabAbilities;
 
     public ScrollerController scroller;
     float spawnTimer = 1;
+
+    public static SpawnThings main { get; private set; }
+
+    void Start() {
+        if (main && main.gameObject) Destroy(main.gameObject);
+        main = this;
+    }
+
+    public static T PickRandom<T>(T[] prefabs) {
+        if (prefabs.Length == 0) return default(T);
+        return prefabs[Random.Range(0, prefabs.Length)];
+    }
 
     void Update() {
 
         if (spawnTimer > 0) spawnTimer -= Time.deltaTime;
         else {
             spawnTimer = Random.Range(0.1f, 3f);
-            SpawnAThing();
+            SpawnRandom();
         }
     }
+    public void SpawnRandom() {
+        MonoBehaviour prefab = null;
 
-    private void SpawnAThing() {
+        int n = Random.Range(1, 100);
+
+        if (n < 90) prefab = PickRandom(prefabAsteroids);
+        else prefab = PickRandom(prefabPowerups);
+
+        if(prefab) SpawnAThing(prefab);
+    }
+    private void SpawnAThing(MonoBehaviour prefab) {
+
+        //print("spawning!");
+
         Vector3 pos = Vector3.zero;
 
         int n = Random.Range(1, 100);
-        if (n < 66) pos = SpawnFromFront();
-        else pos = SpawnFromRandom();
+        if (n < 66) pos = GetPositionInFront();
+        else pos = GetPositionRandom();
 
-        Asteroid prefab = prefabAsteroids[Random.Range(0, prefabAsteroids.Length)];
-        Asteroid asteroid = Instantiate(prefab, pos, Quaternion.identity, scroller.transform);
+        MonoBehaviour body = Instantiate(prefab, pos, Quaternion.identity, scroller.transform);
 
         Vector3 dir = -(pos - scroller.transform.position).normalized;
         float impulse = Random.Range(5, 10);
-        asteroid.GetComponent<Rigidbody>().AddForce(dir * impulse, ForceMode.Impulse);
+
+        body.GetComponent<Rigidbody>().AddForce(dir * impulse, ForceMode.Impulse);
     }
 
     /// <summary>
@@ -38,7 +65,7 @@ public class SpawnThings : MonoBehaviour {
     /// </summary>
     /// <param name="randomDegrees"></param>
     /// <returns></returns>
-    Vector3 SpawnFromFront(float randomDegrees = 30) {
+    Vector3 GetPositionInFront(float randomDegrees = 30) {
 
         Vector3 min = scroller.min;
         Vector3 max = scroller.max;
@@ -57,7 +84,7 @@ public class SpawnThings : MonoBehaviour {
 
         return dir + scroller.transform.position;
     }
-    Vector3 SpawnFromRandom() {
+    Vector3 GetPositionRandom() {
 
         Vector3 min = scroller.min;
         Vector3 max = scroller.max;

@@ -21,7 +21,7 @@ public class PlayerController : Controller {
         cam = Camera.main;
         allegiance = Allegiance.Player;
         hud = Instantiate(hudPrefab);
-        hud.RebuildViews(this);
+        UpdateHUD();
     }
     void Update() {
         InputMove();
@@ -76,5 +76,8 @@ public class PlayerController : Controller {
     private void InputAim(float axisH, float axisV) {
         wantsToAim = (axisH * axisH + axisV * axisV > .2f);
         if (wantsToAim) dirToAim = new Vector3(axisH, 0, axisV).normalized;
+    }
+    public void UpdateHUD() {
+        if(hud) hud.RebuildViews(this);
     }
 }
