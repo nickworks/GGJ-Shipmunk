@@ -8,6 +8,7 @@ public class PlayerController : Controller {
     Camera cam;
     ScrollerController scroller;
 
+    public bool isUsingGamepad = false;
     public HUDController hudPrefab;
     protected HUDController hud;
 
@@ -24,9 +25,20 @@ public class PlayerController : Controller {
     }
     void Update() {
         InputMove();
-        InputAimMouse();
-        //InputAimController();
+        float h = Input.GetAxisRaw("AimX");
+        float v = Input.GetAxisRaw("AimY");
+        float dMouseX = Input.GetAxisRaw("Mouse X");
+        float dMouseY = Input.GetAxisRaw("Mouse Y");
 
+        bool switchToController = (h * h + v * v > 0.2f);
+        bool switchToMouse = (dMouseX != 0 || dMouseY != 0);
+
+        if (!isUsingGamepad && switchToController) isUsingGamepad = true;
+        else if ( isUsingGamepad && switchToMouse) isUsingGamepad = false;
+
+        if (!isUsingGamepad) GetAimAxisFromMouse(ref h, ref v);
+        InputAim(h, v);
+        
         wantsToAbilityA = Input.GetButton("Fire1");
         wantsToAbilityB = Input.GetButton("Fire2");
 
@@ -46,23 +58,23 @@ public class PlayerController : Controller {
         wantsToMove = (h * h + v * v > .2f);
         if (wantsToMove) dirToMove = new Vector3(h, 0, v).normalized;
     }
-    private void InputAimMouse() {
+    private void GetAimAxisFromMouse(ref float axisH, ref float axisV) {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Vector3.up, transform.position);
 
         if (plane.Raycast(ray, out float dis)) {
             Vector3 mouseWorldPos = ray.GetPoint(dis);
             Vector3 dir = mouseWorldPos - transform.position;
-            dirToAim = new Vector3(dir.x, 0, dir.z).normalized;
-
+            dir = new Vector3(dir.x, 0, dir.z).normalized;
+            axisH = dir.x;
+            axisV = dir.z;
             wantsToAim = true;
+        } else {
+            wantsToAim = false;
         }
     }
-    private void InputAimController() {
-        float h = Input.GetAxisRaw("AimX");
-        float v = Input.GetAxisRaw("AimY");
-
-        wantsToAim = (h * h + v * v > .2f);
-        if (wantsToAim) dirToAim = new Vector3(h, 0, v).normalized;
+    private void InputAim(float axisH, float axisV) {
+        wantsToAim = (axisH * axisH + axisV * axisV > .2f);
+        if (wantsToAim) dirToAim = new Vector3(axisH, 0, axisV).normalized;
     }
 }
