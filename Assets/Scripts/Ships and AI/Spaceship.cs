@@ -256,5 +256,9 @@ public class Spaceship : MonoBehaviour {
             (controller.wantsToAbilityD && currentSlot == Spaceship.AbilitySlots.ActionD)
         );
     }
-
+    public void GiveRandomLoadout() {
+        for (int i = 0; i < 4; i++) {
+            SpawnAndInstall(SpawnThings.PickRandom(SpawnThings.main.prefabAbilities));
+        }
+    }
 }

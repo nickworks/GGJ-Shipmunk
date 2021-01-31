@@ -55,6 +55,9 @@ public class AIController : Controller {
 
     float delayUntilNextScan = 0;
 
+    private void Start() {
+        ship.GiveRandomLoadout();
+    }
     void Update() {
         if (state == null)
             ChangeState(new States.Idle());

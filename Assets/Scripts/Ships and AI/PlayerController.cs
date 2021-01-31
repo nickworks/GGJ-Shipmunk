@@ -15,8 +15,8 @@ public class PlayerController : Controller {
     void OnDestroy() {
         if(hud) Destroy(hud.gameObject);
     }
-    protected override void Init() {
-        base.Init();
+    void Start() {
+
         scroller = FindObjectOfType<ScrollerController>();
         cam = Camera.main;
         allegiance = Allegiance.Player;

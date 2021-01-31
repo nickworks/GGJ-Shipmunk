@@ -29,10 +29,7 @@ public class Controller : MonoBehaviour {
         }
     }
 
-    void Start() {
-        Init();
-    }
-    protected virtual void Init() {
+    void Awake() {
         ship = GetComponent<Spaceship>();
     }
 
