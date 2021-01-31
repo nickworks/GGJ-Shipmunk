@@ -120,6 +120,9 @@ public class SpaceRigidbody : MonoBehaviour {
     public void SetVelocity(Vector3 v) {
         body.velocity = v;
     }
+    public Vector3 GetVelocity() {
+        return body.velocity;
+    }
     public void SetAngularVelocity(Vector3 v) {
         body.angularVelocity = v;
     }

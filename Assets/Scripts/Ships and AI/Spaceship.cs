@@ -43,16 +43,16 @@ public class Spaceship : MonoBehaviour {
         public class Dashing : _State {
 
             float time = 0.5f;
-            float distance = 0;
 
             Vector3 start;
             Vector3 end;
 
             float animTimer = 0;
 
-            public Dashing(float distance, float time) {
+            public Dashing(Vector3 start, Vector3 end, float time) {
                 this.time = time;
-                this.distance = distance;
+                this.end = end;
+                this.start = start;
             }
             public override _State Update() {
                 ship.DoUpdateSubSystems();
@@ -63,13 +63,6 @@ public class Spaceship : MonoBehaviour {
                 animTimer += Time.deltaTime;
                 ship.transform.localPosition = AnimMath.Lerp(start, end, animTimer / time, true);
                 return (animTimer >= time);
-            }
-            public override void OnStart(Spaceship ship) {
-                base.OnStart(ship);
-
-                start = ship.transform.localPosition;
-                end = start + ship.controller.dirToMove * distance;
-                ship.velocity = .25f * ship.engine.transform.forward * distance / time;
             }
             public override void OnEnd() {
                 if (ship.controller.wantsToMove) {

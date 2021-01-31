@@ -18,6 +18,8 @@ public class _Ability : _ShipSystem {
     public bool chargeScalesPotency = false;
     protected bool hasLetOff = true;
 
+    public bool usesMoveDirInsteadOfAim = false;
+
     public float chargedUpPercent {
         get {
             return (timerForChargeUp > timeToCharge) ? 1 : timerForChargeUp / timeToCharge;
@@ -51,7 +53,20 @@ public class _Ability : _ShipSystem {
         return null;
     }
     private void Aim() {
-        if (ship.controller.wantsToAim) transform.rotation = Quaternion.LookRotation(ship.controller.dirToAim, Vector3.up);
+
+        if(GetAbilityDir(out Vector3 dir)) {
+            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+        }
+    }
+    public bool GetAbilityDir(out Vector3 dir) {
+        dir = Vector3.zero;
+        if (usesMoveDirInsteadOfAim) {
+            dir = ship.controller.dirToMove;
+            return (ship.controller.wantsToMove);
+        } else {
+            dir = ship.controller.dirToAim;
+            return (ship.controller.wantsToAim);
+        }
     }
     
     public void TryToDo() {

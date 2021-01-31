@@ -29,10 +29,16 @@ public class ProjectileWeapon : _Ability {
 
     override protected void DoAbility(float mult = 1) {
 
-        float yawAim = transform.eulerAngles.y + angleOffset;
+        GetAbilityDir(out Vector3 dir);
+
+        float yawAim = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+
+        yawAim += angleOffset;
 
         // kick-back:
         ship.AddForce(yawToDir(yawAim) * -kickbackImpulse);
+
+        Vector3 vel = ship.body.GetVelocity();
 
         // offset for spread-shot:
         yawAim -= (splitAmount / 2) * splitAngle;
@@ -45,11 +51,11 @@ public class ProjectileWeapon : _Ability {
         for (int i = 0; i < splitAmount; i++) {
 
             float rand = Random.Range(-randomAngle, randomAngle);
-            Vector3 dir = yawToDir(yawAim + i * splitAngle + rand);
-            Vector3 offRight = Vector3.Cross(dir, Vector3.up) * Random.Range(-randomWidth, randomWidth);
+            Vector3 finalDir = yawToDir(yawAim + i * splitAngle + rand);
+            Vector3 offRight = Vector3.Cross(finalDir, Vector3.up) * Random.Range(-randomWidth, randomWidth);
 
-            Projectile p = Instantiate(projectilePrefab, transform.position + offRight, Quaternion.LookRotation(dir, Vector3.up));
-            p.InitBullet(ship.controller.allegiance, dmg, spd, siz);
+            Projectile p = Instantiate(projectilePrefab, transform.position + offRight, Quaternion.LookRotation(finalDir, Vector3.up));
+            p.InitBullet(vel, ship.controller.allegiance, dmg, spd, siz);
         }
         ship.ChangeState(new Spaceship.States.Attacking());
     }

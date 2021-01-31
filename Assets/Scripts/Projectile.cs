@@ -31,10 +31,10 @@ public class Projectile : MonoBehaviour {
     public SpaceRigidbody body { get; private set; }
     private List<SpaceRigidbody> overlappedObjects = new List<SpaceRigidbody>();
 
-    public void InitBullet(Controller.Allegiance allegiance, float damageMult = 1, float speedMult = 1, float sizeMult = 1) {
+    public void InitBullet(Vector3 vel, Controller.Allegiance allegiance, float damageMult = 1, float speedMult = 1, float sizeMult = 1) {
 
         body = GetComponent<SpaceRigidbody>();
-        body.SetVelocity(transform.forward * baseSpeed * speedMult);
+        body.SetVelocity(transform.forward * baseSpeed * speedMult + vel);
 
         body.allegiance = allegiance;
         this.damageMult = damageMult;
