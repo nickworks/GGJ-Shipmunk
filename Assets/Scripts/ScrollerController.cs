@@ -12,7 +12,9 @@ public class ScrollerController : MonoBehaviour
 
     public CameraMode currentMode = CameraMode.Scrolling;
     
-    private Camera cam;
+    public Camera cam1;
+    public Camera cam2;
+
     private PostProcessVolume postProcess;
     public Transform thingToFollow;
     public Transform thingFollowing;
@@ -26,8 +28,8 @@ public class ScrollerController : MonoBehaviour
     public float zoom { get; private set; }
 
     private void Start() {
-        cam = GetComponentInChildren<Camera>();
-        postProcess = cam.GetComponent<PostProcessVolume>();
+
+        postProcess = cam1.GetComponent<PostProcessVolume>();
     }
 
     void Update() {
@@ -45,7 +47,7 @@ public class ScrollerController : MonoBehaviour
 
     private void DollyTrackCamera() {
 
-        if (cam == null) return;
+        if (cam1 == null) return;
 
         if (currentMode == CameraMode.Scrolling) transitionTimer -= Time.deltaTime;
         if (currentMode == CameraMode.FreeRoam) transitionTimer += Time.deltaTime;
@@ -59,13 +61,13 @@ public class ScrollerController : MonoBehaviour
             transitionTimer = 0;
         }
         float degrees = AnimMath.Smooth(10, 60, p);
-        cam.fieldOfView = degrees;
+        cam2.fieldOfView = cam1.fieldOfView = degrees;
 
         zoom = AnimMath.Smooth(10, 20, p);
 
-        Vector3 pos = cam.transform.localPosition;
+        Vector3 pos = cam1.transform.localPosition;
         pos.z = -zoom / Mathf.Tan(degrees * Mathf.Deg2Rad / 2);
-        cam.transform.localPosition = pos;
+        cam1.transform.localPosition = pos;
 
         if (postProcess) postProcess.weight = AnimMath.Lerp(1, 0.25f, 1-(1-p)*(1-p));
 
@@ -77,12 +79,12 @@ public class ScrollerController : MonoBehaviour
 
     public Vector3 min {
         get {
-            return new Vector3(transform.position.x - zoom * cam.aspect * .9f, 0, transform.position.z - zoom);
+            return new Vector3(transform.position.x - zoom * cam1.aspect * .9f, 0, transform.position.z - zoom);
         }
     }
     public Vector3 max {
         get {
-            return new Vector3(transform.position.x + zoom * cam.aspect * .9f, 0, transform.position.z + zoom);
+            return new Vector3(transform.position.x + zoom * cam1.aspect * .9f, 0, transform.position.z + zoom);
         }
     }
 
