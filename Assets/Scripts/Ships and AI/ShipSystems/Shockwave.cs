@@ -35,7 +35,7 @@ public class Shockwave : _Ability {
         animating = false;
         artRing.transform.localScale = Vector3.zero;
     }
-    public override void DoAbility(float mult = 1) {
+    protected override void DoAbility(float mult = 1) {
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         foreach(Collider c in colliders) {
             SpaceRigidbody body = c.GetComponent<SpaceRigidbody>();

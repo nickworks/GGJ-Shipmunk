@@ -23,44 +23,48 @@ public class _Ability : _ShipSystem {
             return (timerForChargeUp > timeToCharge) ? 1 : timerForChargeUp / timeToCharge;
         }
     }
-
-    public void DoTick(Spaceship.AbilitySlots currentSlot) {
+    public void DoTick() {
         if (timerCooldown > 0) timerCooldown -= Time.deltaTime;
+        Aim();
         
-        if (ship.controller.wantsToAim) transform.rotation = Quaternion.LookRotation(ship.controller.dirToAim, Vector3.up);
-        
-        bool doIt =(
-            (ship.controller.wantsToAbilityA && currentSlot == Spaceship.AbilitySlots.ActionA) ||
-            (ship.controller.wantsToAbilityB && currentSlot == Spaceship.AbilitySlots.ActionB) ||
-            (ship.controller.wantsToAbilityC && currentSlot == Spaceship.AbilitySlots.ActionC) ||
-            (ship.controller.wantsToAbilityD && currentSlot == Spaceship.AbilitySlots.ActionD)
-        );
-
-        if (doIt) {
-            timerForChargeUp += Time.deltaTime;
-            bool shoot = (abilityIsAutoFire || hasLetOff);
-            if (abilityFiresOnRelease) shoot = false;
-            if (abilityChargesUp && timerForChargeUp < timeToCharge) {
-                shoot = (chargeScalesPotency && abilityIsAutoFire);
-            }
-            if (shoot) Do();
-            
-            hasLetOff = false;
-        } else if (!hasLetOff) { 
-            if (abilityFiresOnRelease) Do();
+        if (!hasLetOff) { 
+            if (abilityFiresOnRelease) TryToDo();
             hasLetOff = true;
             timerForChargeUp = 0;
         }
     }
-    private void Do() {
+    public Spaceship.States._State DoTickActive() {
+        if (timerCooldown > 0) timerCooldown -= Time.deltaTime;
+        Aim();
 
-        if (timerCooldown > 0) return;
+        timerForChargeUp += Time.deltaTime;
+        bool shoot = (abilityIsAutoFire || hasLetOff);
+        if (abilityFiresOnRelease) shoot = false;
+        if (abilityChargesUp && timerForChargeUp < timeToCharge) {
+            shoot = (chargeScalesPotency && abilityIsAutoFire);
+        }
+
+        hasLetOff = false;
+        
+        if (shoot) TryToDo();
+
+        return null;
+    }
+    private void Aim() {
+        if (ship.controller.wantsToAim) transform.rotation = Quaternion.LookRotation(ship.controller.dirToAim, Vector3.up);
+    }
+    
+    public void TryToDo() {
+        if (timerCooldown > 0) return; // cancel
         timerCooldown = 1 / maxUsesPerSecond;
-
         float s = (chargeScalesPotency) ? chargedUpPercent : 1;
         DoAbility(s);
     }
-    virtual public void DoAbility(float mult = 1) {
+    /// <summary>
+    /// And switch ship state if necessary...
+    /// </summary>
+    /// <param name="mult"></param>
+    virtual protected void DoAbility(float mult = 1) {
 
     }
 }

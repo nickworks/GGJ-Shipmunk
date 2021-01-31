@@ -29,8 +29,22 @@ public class Spaceship : MonoBehaviour {
                 return null;
             }
         }
+        public class Attacking : _State {
+            public Attacking() {
+                print("????");
+            }
+            public override _State Update() {
+
+                ship.DoUpdateSubSystems();
+                ship.DoPhysTick();
+
+                if (!ship.controller.wantsToUseAbility) return new Moving();
+
+                return null;
+            }
+        }
         public class Dashing : _State {
-            
+
             float time = 0.5f;
             float distance = 0;
 
@@ -224,11 +238,26 @@ public class Spaceship : MonoBehaviour {
 
         if (engine) engine.DoTick();
 
-        foreach (KeyValuePair<AbilitySlots, _Ability> sys in abilitySystems)
-            sys.Value.DoTick(sys.Key);
+        foreach (KeyValuePair<AbilitySlots, _Ability> sys in abilitySystems) {
+
+            if (DoesControllerWantToUseMe(sys.Key)) {
+                sys.Value.DoTickActive();
+            } else {
+                sys.Value.DoTick();
+            }
+        }
         
         foreach (_Passive sys in passiveSystems)
             sys.DoTick();
         
     }
+    public bool DoesControllerWantToUseMe(Spaceship.AbilitySlots currentSlot) {
+        return (
+            (controller.wantsToAbilityA && currentSlot == Spaceship.AbilitySlots.ActionA) ||
+            (controller.wantsToAbilityB && currentSlot == Spaceship.AbilitySlots.ActionB) ||
+            (controller.wantsToAbilityC && currentSlot == Spaceship.AbilitySlots.ActionC) ||
+            (controller.wantsToAbilityD && currentSlot == Spaceship.AbilitySlots.ActionD)
+        );
+    }
+
 }

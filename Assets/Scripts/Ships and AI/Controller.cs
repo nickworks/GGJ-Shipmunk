@@ -23,6 +23,12 @@ public class Controller : MonoBehaviour {
     [HideInInspector] public bool wantsToAbilityC;
     [HideInInspector] public bool wantsToAbilityD;
 
+    public bool wantsToUseAbility {
+        get {
+            return wantsToAbilityA || wantsToAbilityB || wantsToAbilityC || wantsToAbilityD;
+        }
+    }
+
     void Start() {
         Init();
     }

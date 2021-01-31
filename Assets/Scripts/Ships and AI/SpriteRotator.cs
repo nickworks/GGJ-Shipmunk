@@ -14,13 +14,16 @@ public class SpriteRotator : MonoBehaviour {
         public Sprite south;
     }
 
+    public SpriteRenderer spriteRenderer;
     public SpriteSet normal;
+    public SpriteSet hit;
+    public SpriteSet attack;
 
     private Spaceship ship;
-    public SpriteRenderer sprite;
     
     void Start() {
         ship = GetComponent<Spaceship>();
+        if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     
     void Update() {
@@ -30,6 +33,11 @@ public class SpriteRotator : MonoBehaviour {
         float a = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
 
         SpriteSet set = normal;
+        if (ship.state != null) {
+            if (ship.state is Spaceship.States.Attacking) set = attack;
+            if (ship.state is Spaceship.States.Dashing) set = hit;
+        }
+        
         Sprite s = set.southEast;
         bool flip = false;
 
@@ -57,7 +65,7 @@ public class SpriteRotator : MonoBehaviour {
             }
         }
 
-        sprite.sprite = s;
-        sprite.flipX = flip;
+        spriteRenderer.sprite = s;
+        spriteRenderer.flipX = flip;
     }
 }

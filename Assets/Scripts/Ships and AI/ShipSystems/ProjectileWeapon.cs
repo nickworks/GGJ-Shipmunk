@@ -27,7 +27,7 @@ public class ProjectileWeapon : _Ability {
         angleOffset += angleRotate * Time.deltaTime * ship.body.timeScale;
     }
 
-    override public void DoAbility(float mult = 1) {
+    override protected void DoAbility(float mult = 1) {
 
         float yawAim = transform.eulerAngles.y + angleOffset;
 
@@ -51,6 +51,7 @@ public class ProjectileWeapon : _Ability {
             Projectile p = Instantiate(projectilePrefab, transform.position + offRight, Quaternion.LookRotation(dir, Vector3.up));
             p.InitBullet(ship.controller.allegiance, dmg, spd, siz);
         }
+        ship.ChangeState(new Spaceship.States.Attacking());
     }
     Vector3 yawToDir(float degrees) {
         float radians = degrees * Mathf.Deg2Rad;
