@@ -13,11 +13,16 @@ public class SpawnThings : MonoBehaviour {
     public ScrollerController scroller;
     float spawnTimer = 1;
 
+    [Header("Background Things")]
+    public Transform[] prefabBigThings;
+
+
     public static SpawnThings main { get; private set; }
 
     void Start() {
         if (main && main.gameObject) Destroy(main.gameObject);
         main = this;
+        SpawnBackgroundItems();
     }
 
     public static T PickRandom<T>(T[] prefabs) {
@@ -99,5 +104,18 @@ public class SpawnThings : MonoBehaviour {
         dir.z = dir2d.y * (max.z - min.z);
 
         return dir + scroller.transform.position;
+    }
+    public void SpawnBackgroundItems() {
+
+        float ratio = Mathf.Tan(Mathf.PI / 3);
+
+        for (int i = 0; i < 6; i++) {
+
+            float y = Random.Range(-400, -1500);
+            float z = -y / ratio;
+
+            Vector3 pos = transform.position + new Vector3(i * 500, y, z);
+            Instantiate(PickRandom(prefabBigThings), pos, Quaternion.LookRotation(Random.onUnitSphere, Vector3.up));
+        }
     }
 }
