@@ -93,7 +93,7 @@ MonoBehaviour:
   randomAngle: 0
   angleRotate: 0
   chargeMinSize: 0.5
-  chargeMaxSize: 3
+  chargeMaxSize: 1.5
   chargeMinSpeed: 1
   chargeMaxSpeed: 1
   chargeMinStrength: 1

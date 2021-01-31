@@ -40,7 +40,9 @@ public class Projectile : MonoBehaviour {
         body.allegiance = allegiance;
         this.damageMult = damageMult;
         this.speedMult = speedMult;
-        transform.localScale *= sizeMult;
+
+        GrowAnimation grow = GetComponent<GrowAnimation>();
+        if(grow) grow.Animate(body, sizeMult);
     }
     void Update() {
         age += Time.deltaTime * Time.timeScale;
