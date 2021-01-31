@@ -23,7 +23,7 @@ public class Spaceship : MonoBehaviour {
         public class Moving : _State {
             public override _State Update() {
 
-                return ship.DoUpdateSubSystems(true);
+                return ship.DoUpdateSubSystems();
             }
         }
         public class Attacking : _State {
@@ -33,12 +33,8 @@ public class Spaceship : MonoBehaviour {
             }
             public override _State Update() {
 
-                ship.DoUpdateSubSystems(false);
-
-                if (!ship.controller.wantsToUseAbility) return new Moving();
-                if (!activeAbility) return new Moving();
-                
-                return activeAbility.DoTickActive();
+                if (!activeAbility || !ship) return new Moving();
+                return ship.DoUpdateSubSystems(activeAbility);
             }
             public override void OnEnd() {
                 activeAbility = null;
@@ -59,7 +55,7 @@ public class Spaceship : MonoBehaviour {
                 this.start = start;
             }
             public override _State Update() {
-                ship.DoUpdateSubSystems(false);
+                ship.DoUpdateSubSystems(null);
 
                 animTimer += Time.deltaTime;
                 ship.transform.localPosition = AnimMath.Lerp(start, end, animTimer / time, true);
@@ -214,22 +210,24 @@ public class Spaceship : MonoBehaviour {
         if (!abilitySystems.ContainsKey(slot)) return;
         abilitySystems[slot].
     }*/
-    private States._State DoUpdateSubSystems(bool ableToActivate) {
+    private States._State DoUpdateSubSystems(_Ability activeAbility = null) {
 
         if (engine) engine.DoTick();
 
         foreach (_Passive sys in passiveSystems) sys.DoTick();
-
+        
+        bool ableToActivate = (activeAbility == null);
         States._State nextState = null;
         foreach (KeyValuePair<AbilitySlots, _Ability> sys in abilitySystems) {
 
             sys.Value.DoTick();
+            bool want = DoesControllerWantToUseMe(sys.Key);
 
-            if (ableToActivate && DoesControllerWantToUseMe(sys.Key)) {
-                nextState = new States.Attacking(sys.Value);
-                ableToActivate = false;
-            }
+            if(activeAbility == null) {
+                if (want) nextState = new States.Attacking(sys.Value);
+            } else if (activeAbility == sys.Value) nextState = sys.Value.DoTickActive(want);
         }
+
         return nextState;        
     }
     public bool DoesControllerWantToUseMe(Spaceship.AbilitySlots currentSlot) {

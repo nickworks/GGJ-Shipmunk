@@ -11,6 +11,9 @@ public class _Ability : _ShipSystem {
     public bool abilityIsAutoFire = false;
     public float maxUsesPerSecond = 10;
     protected float timerCooldown = 0;
+    
+    public int burstSize = 0;
+    protected int ammo = 0;
 
     public bool abilityFiresOnRelease = false;
     public bool abilityChargesUp = false;
@@ -30,23 +33,26 @@ public class _Ability : _ShipSystem {
         if (timerCooldown > 0) timerCooldown -= Time.deltaTime;
         Aim();
     }
-    public Spaceship.States._State DoTickActive() {
+    public Spaceship.States._State DoTickActive(bool wantsToUse) {
 
         timerForChargeUp += Time.deltaTime;
         bool shoot = (abilityIsAutoFire || hasLetOff);
-        if (abilityFiresOnRelease) shoot = false;
-        if (abilityChargesUp && timerForChargeUp < timeToCharge) {
-            shoot = (chargeScalesPotency && abilityIsAutoFire);
+
+        if (wantsToUse) {
+            if (abilityChargesUp && timerForChargeUp < timeToCharge) {
+                shoot = (chargeScalesPotency && abilityIsAutoFire);
+            }
+            if (abilityFiresOnRelease) shoot = false;
+        } else {
+            if (abilityFiresOnRelease) shoot = true;
         }
-
-        hasLetOff = false;
-
         if (shoot) {
             if (timerCooldown > 0) return null; // cancel
             timerCooldown = 1 / maxUsesPerSecond;
             float s = (chargeScalesPotency) ? chargedUpPercent : 1;
             return DoAbility(s);
         }
+        if (!wantsToUse) return new Spaceship.States.Moving();
         return null;
     }
     private void Aim() {

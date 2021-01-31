@@ -87,11 +87,12 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4616743461132739761, guid: 8f0d1147538cc404bbb44892c599fbe0, type: 3}
   splitAmount: 1
   splitAngle: 0
+  distanceAwayToSpawn: 0
   randomWidth: 0
   randomAngle: 0
   angleRotate: 0
   chargeMinSize: 1
-  chargeMaxSize: 10
+  chargeMaxSize: 5
   chargeMinSpeed: 2
   chargeMaxSpeed: 4
   chargeMinStrength: 1

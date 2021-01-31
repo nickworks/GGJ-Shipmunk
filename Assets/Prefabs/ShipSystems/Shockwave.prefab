@@ -79,6 +79,7 @@ MonoBehaviour:
   abilityName: Shockwave
   abilityIsAutoFire: 0
   maxUsesPerSecond: 1
+  burstSize: 0
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1

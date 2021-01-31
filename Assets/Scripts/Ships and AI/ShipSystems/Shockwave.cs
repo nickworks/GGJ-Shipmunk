@@ -49,6 +49,6 @@ public class Shockwave : _Ability {
         artRing.gameObject.SetActive(true);
         animating = true;
         animTimer = 0;
-        return null;
+        return new Spaceship.States.Moving();
     }
 }

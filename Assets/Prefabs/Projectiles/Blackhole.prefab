@@ -292,7 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 1
   affect: 3
-  affectAmount: 200
+  affectAmount: 75
   shouldAffectOtherProjectiles: 1
   baseSpeed: 5
   baseLifeSpan: 2

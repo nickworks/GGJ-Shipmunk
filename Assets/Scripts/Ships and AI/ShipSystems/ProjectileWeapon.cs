@@ -59,7 +59,7 @@ public class ProjectileWeapon : _Ability {
             Projectile p = Instantiate(projectilePrefab, transform.position + offRight + finalDir * distanceAwayToSpawn, Quaternion.LookRotation(finalDir, Vector3.up));
             p.InitBullet(vel, ship.controller.allegiance, dmg, spd, siz);
         }
-        return null;
+        return new Spaceship.States.Moving();
     }
     Vector3 yawToDir(float degrees) {
         float radians = degrees * Mathf.Deg2Rad;

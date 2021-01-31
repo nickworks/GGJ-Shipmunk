@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1802430455327357429}
   - component: {fileID: 2541896119329521965}
   - component: {fileID: 5403599341333808665}
-  - component: {fileID: 5080056545038663638}
   m_Layer: 0
   m_Name: _SpaceShip
   m_TagString: Untagged
@@ -92,37 +91,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &5080056545038663638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3671810375067917211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a7f59fbbb0d14498e499f6871177ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 0}
-  normal:
-    north: {fileID: -189482887668426834, guid: fe73607279d7902419797532b53522c9, type: 3}
-    northEast: {fileID: -5751919354286340635, guid: fe73607279d7902419797532b53522c9, type: 3}
-    east: {fileID: 5971051262893803865, guid: fe73607279d7902419797532b53522c9, type: 3}
-    southEast: {fileID: 3646160675348619809, guid: fe73607279d7902419797532b53522c9, type: 3}
-    south: {fileID: -1773249290028646349, guid: fe73607279d7902419797532b53522c9, type: 3}
-  hit:
-    north: {fileID: -4567856447043437326, guid: fe73607279d7902419797532b53522c9, type: 3}
-    northEast: {fileID: 1063760081719977735, guid: fe73607279d7902419797532b53522c9, type: 3}
-    east: {fileID: 4801046027410180209, guid: fe73607279d7902419797532b53522c9, type: 3}
-    southEast: {fileID: -6843928143303242960, guid: fe73607279d7902419797532b53522c9, type: 3}
-    south: {fileID: 2802427866422796077, guid: fe73607279d7902419797532b53522c9, type: 3}
-  attack:
-    north: {fileID: 4152784152670207441, guid: fe73607279d7902419797532b53522c9, type: 3}
-    northEast: {fileID: -2731860992454637307, guid: fe73607279d7902419797532b53522c9, type: 3}
-    east: {fileID: 2695573240477199570, guid: fe73607279d7902419797532b53522c9, type: 3}
-    southEast: {fileID: 2127102916505273919, guid: fe73607279d7902419797532b53522c9, type: 3}
-    south: {fileID: -6904447106861262219, guid: fe73607279d7902419797532b53522c9, type: 3}
 --- !u!1 &8843442034812048407
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +163,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6843928143303242960, guid: fe73607279d7902419797532b53522c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 94965630ada7e1944ae328b1a537e1ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
