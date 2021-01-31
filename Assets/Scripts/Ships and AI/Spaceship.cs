@@ -110,6 +110,7 @@ public class Spaceship : MonoBehaviour {
         foreach (_ShipSystem prefab in prefabsToAddAtRuntime)
             if(prefab) SpawnAndInstall(prefab);
 
+        UpdateHUD();
     }
     private bool Install(_ShipSystem sys) {
         
@@ -192,15 +193,18 @@ public class Spaceship : MonoBehaviour {
         _ShipSystem sys = Instantiate(prefab, transform); // spawn it
 
         if (Install(sys)) {
-            if(controller is PlayerController) {
-                (controller as PlayerController).UpdateHUD();
-            }
+            UpdateHUD();
             return true; // try to install it
         }
 
         Destroy(sys.gameObject); // delete it if unsuccessful
 
         return false;
+    }
+    public void UpdateHUD() {
+        if (controller is PlayerController) {
+            (controller as PlayerController).UpdateHUD();
+        }
     }
 
     private AbilitySlots? NextAbilitySlot() {
