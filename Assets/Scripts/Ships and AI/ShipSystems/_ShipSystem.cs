@@ -6,7 +6,7 @@ public class _ShipSystem : MonoBehaviour {
 
     public Spaceship ship { get; private set; }
 
-    void Start() {
+    void Awake() {
         ship = GetComponentInParent<Spaceship>();
     }
 }

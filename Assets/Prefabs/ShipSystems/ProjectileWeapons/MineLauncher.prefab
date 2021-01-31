@@ -76,16 +76,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   abilityName: Mines Launcher
-  abilityIsAutoFire: 0
+  maxUsesPerReload: 5
   maxUsesPerSecond: 5
+  timeToReload: 0.1
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1
   chargeScalesPotency: 0
+  usesMoveDirInsteadOfAim: 0
   kickbackImpulse: 0.5
   projectilePrefab: {fileID: 4616743461132739761, guid: eab0630821562ff448a3af3d7589ce99, type: 3}
   splitAmount: 1
   splitAngle: 0
+  distanceAwayToSpawn: 0
   randomWidth: 0.25
   randomAngle: 10
   angleRotate: 0

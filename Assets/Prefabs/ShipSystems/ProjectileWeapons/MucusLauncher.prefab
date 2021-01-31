@@ -76,8 +76,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -1290855366162983238, guid: cd5312aa7fcd93b468b9776a39faf3f9, type: 3}
   abilityName: Mucus Launcher
-  abilityIsAutoFire: 0
+  maxUsesPerReload: 1
   maxUsesPerSecond: 1
+  timeToReload: 0.1
   abilityFiresOnRelease: 1
   abilityChargesUp: 1
   timeToCharge: 2
@@ -87,6 +88,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4616743461132739761, guid: 7135001093f54d945ac37641b1138c6f, type: 3}
   splitAmount: 1
   splitAngle: 0
+  distanceAwayToSpawn: 0
   randomWidth: 0
   randomAngle: 0
   angleRotate: 0

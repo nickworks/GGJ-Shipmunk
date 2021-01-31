@@ -8,20 +8,22 @@ public class _Ability : _ShipSystem {
     public Sprite sprite;
     public string abilityName = "NAME ME";
 
-    public bool abilityIsAutoFire = false;
+    [Header("Burst and Reload")]
+    public int maxUsesPerReload = 3;
     public float maxUsesPerSecond = 10;
-    protected float timerCooldown = 0;
-    
-    public int burstSize = 0;
-    protected int ammo = 0;
+    public float timeToReload = 0.1f;
+    protected float cooldownUntilNextShot = 0;
+    protected float cooldownUntilReload = 0;
+    protected int shotsLeftUntilReload = 0;
 
+    [Header("Charge-Up")]
     public bool abilityFiresOnRelease = false;
     public bool abilityChargesUp = false;
     public float timeToCharge = 1;
     protected float timerForChargeUp = 0;
     public bool chargeScalesPotency = false;
-    protected bool hasLetOff = true;
 
+    [Header("Aiming Ability")]
     public bool usesMoveDirInsteadOfAim = false;
 
     public float chargedUpPercent {
@@ -29,30 +31,52 @@ public class _Ability : _ShipSystem {
             return (timerForChargeUp > timeToCharge) ? 1 : timerForChargeUp / timeToCharge;
         }
     }
-    public void DoTick() {
-        if (timerCooldown > 0) timerCooldown -= Time.deltaTime;
+
+    private void Start() {
+        shotsLeftUntilReload = maxUsesPerReload;
+    }
+
+    public void DoTick(bool wantsToUse) {
+        if (cooldownUntilNextShot > 0) cooldownUntilNextShot -= Time.deltaTime;
+        if (!wantsToUse && cooldownUntilReload > 0) {
+            cooldownUntilReload -= Time.deltaTime;
+            if(cooldownUntilReload <= 0) {
+                shotsLeftUntilReload = maxUsesPerReload;
+            }
+        }
         Aim();
     }
     public Spaceship.States._State DoTickActive(bool wantsToUse) {
 
         timerForChargeUp += Time.deltaTime;
-        bool shoot = (abilityIsAutoFire || hasLetOff);
+        bool shoot = (cooldownUntilReload <= 0 || maxUsesPerReload == 0);
 
         if (wantsToUse) {
-            if (abilityChargesUp && timerForChargeUp < timeToCharge) {
-                shoot = (chargeScalesPotency && abilityIsAutoFire);
+            if (abilityFiresOnRelease) {
+                shoot = false;
+            } else if (abilityChargesUp && timerForChargeUp < timeToCharge) {
+                shoot = chargeScalesPotency;
             }
-            if (abilityFiresOnRelease) shoot = false;
         } else {
-            if (abilityFiresOnRelease) shoot = true;
+            if (abilityFiresOnRelease) {
+                shoot = true;
+            } else {
+                cooldownUntilReload = timeToReload; // start reload
+                return new Spaceship.States.Moving();
+            }
         }
         if (shoot) {
-            if (timerCooldown > 0) return null; // cancel
-            timerCooldown = 1 / maxUsesPerSecond;
+            if (cooldownUntilNextShot > 0) return null; // must wait...
+            if(maxUsesPerReload > 0) {
+                if (shotsLeftUntilReload <= 0) return null; // no ammo
+                if (--shotsLeftUntilReload <= 0) {
+                    cooldownUntilReload = timeToReload;
+                }
+            }
+            cooldownUntilNextShot = 1 / maxUsesPerSecond;
             float s = (chargeScalesPotency) ? chargedUpPercent : 1;
             return DoAbility(s);
         }
-        if (!wantsToUse) return new Spaceship.States.Moving();
         return null;
     }
     private void Aim() {

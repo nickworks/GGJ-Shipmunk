@@ -220,8 +220,9 @@ public class Spaceship : MonoBehaviour {
         States._State nextState = null;
         foreach (KeyValuePair<AbilitySlots, _Ability> sys in abilitySystems) {
 
-            sys.Value.DoTick();
             bool want = DoesControllerWantToUseMe(sys.Key);
+
+            sys.Value.DoTick(want);
 
             if(activeAbility == null) {
                 if (want) nextState = new States.Attacking(sys.Value);

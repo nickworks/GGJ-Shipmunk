@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ProjectileWeapon : _Ability {
 
+    [Header("Projectile Weapon")]
     public float kickbackImpulse = .1f;
     public Projectile projectilePrefab;
 
     public int splitAmount = 1;
     public float splitAngle = 0;
 
-    public float distanceAwayToSpawn = 0
-        ;
+    public float distanceAwayToSpawn = 0;
     public float randomWidth = 0.25f;
     public float randomAngle = 0;
 

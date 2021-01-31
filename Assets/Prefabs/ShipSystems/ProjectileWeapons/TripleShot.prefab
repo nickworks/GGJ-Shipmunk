@@ -76,16 +76,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   abilityName: Triple Shot
-  abilityIsAutoFire: 0
+  maxUsesPerReload: 1
   maxUsesPerSecond: 3
+  timeToReload: 0.1
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1
   chargeScalesPotency: 0
+  usesMoveDirInsteadOfAim: 0
   kickbackImpulse: 1
   projectilePrefab: {fileID: 4616743461132739761, guid: 72eb4863d10a5804c9396ca132f756ca, type: 3}
   splitAmount: 3
   splitAngle: 10
+  distanceAwayToSpawn: 0
   randomWidth: 0
   randomAngle: 0
   angleRotate: 0

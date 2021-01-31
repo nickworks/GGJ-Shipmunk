@@ -76,8 +76,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 3876512272233767631, guid: cd5312aa7fcd93b468b9776a39faf3f9, type: 3}
   abilityName: Black Hole Bubbler
-  abilityIsAutoFire: 1
+  maxUsesPerReload: 1
   maxUsesPerSecond: 3
+  timeToReload: 0.25
   abilityFiresOnRelease: 0
   abilityChargesUp: 1
   timeToCharge: 2

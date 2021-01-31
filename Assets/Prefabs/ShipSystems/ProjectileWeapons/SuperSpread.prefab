@@ -76,16 +76,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   abilityName: Sunflower
-  abilityIsAutoFire: 1
+  maxUsesPerReload: 40
   maxUsesPerSecond: 3
+  timeToReload: 2
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1
   chargeScalesPotency: 0
+  usesMoveDirInsteadOfAim: 0
   kickbackImpulse: 0
   projectilePrefab: {fileID: 4616743461132739761, guid: eab0630821562ff448a3af3d7589ce99, type: 3}
   splitAmount: 6
   splitAngle: 60
+  distanceAwayToSpawn: 0
   randomWidth: 0
   randomAngle: 0
   angleRotate: 60
