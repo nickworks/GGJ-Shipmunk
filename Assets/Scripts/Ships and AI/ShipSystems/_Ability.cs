@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,16 +29,8 @@ public class _Ability : _ShipSystem {
     public void DoTick() {
         if (timerCooldown > 0) timerCooldown -= Time.deltaTime;
         Aim();
-        
-        if (!hasLetOff) { 
-            if (abilityFiresOnRelease) TryToDo();
-            hasLetOff = true;
-            timerForChargeUp = 0;
-        }
     }
     public Spaceship.States._State DoTickActive() {
-        if (timerCooldown > 0) timerCooldown -= Time.deltaTime;
-        Aim();
 
         timerForChargeUp += Time.deltaTime;
         bool shoot = (abilityIsAutoFire || hasLetOff);
@@ -47,9 +40,13 @@ public class _Ability : _ShipSystem {
         }
 
         hasLetOff = false;
-        
-        if (shoot) TryToDo();
 
+        if (shoot) {
+            if (timerCooldown > 0) return null; // cancel
+            timerCooldown = 1 / maxUsesPerSecond;
+            float s = (chargeScalesPotency) ? chargedUpPercent : 1;
+            return DoAbility(s);
+        }
         return null;
     }
     private void Aim() {
@@ -68,18 +65,11 @@ public class _Ability : _ShipSystem {
             return (ship.controller.wantsToAim);
         }
     }
-    
-    public void TryToDo() {
-        if (timerCooldown > 0) return; // cancel
-        timerCooldown = 1 / maxUsesPerSecond;
-        float s = (chargeScalesPotency) ? chargedUpPercent : 1;
-        DoAbility(s);
-    }
     /// <summary>
     /// And switch ship state if necessary...
     /// </summary>
     /// <param name="mult"></param>
-    virtual protected void DoAbility(float mult = 1) {
-
+    virtual protected Spaceship.States._State DoAbility(float mult = 1) {
+        return null;
     }
 }

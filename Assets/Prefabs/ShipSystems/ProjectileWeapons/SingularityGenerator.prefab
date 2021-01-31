@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f45762e301ddf498a7a9964fd2774a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 7627503616358371109, guid: cd5312aa7fcd93b468b9776a39faf3f9, type: 3}
   abilityName: Singularity Generator
   abilityIsAutoFire: 0
   maxUsesPerSecond: 1
@@ -82,6 +82,7 @@ MonoBehaviour:
   abilityChargesUp: 1
   timeToCharge: 2
   chargeScalesPotency: 1
+  usesMoveDirInsteadOfAim: 0
   kickbackImpulse: 10
   projectilePrefab: {fileID: 4616743461132739761, guid: 8f0d1147538cc404bbb44892c599fbe0, type: 3}
   splitAmount: 1

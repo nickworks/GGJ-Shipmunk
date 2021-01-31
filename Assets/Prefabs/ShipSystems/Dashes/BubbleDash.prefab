@@ -77,7 +77,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   abilityName: Bubble Dash
   abilityIsAutoFire: 1
-  maxUsesPerSecond: 10
+  maxUsesPerSecond: 5
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1

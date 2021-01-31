@@ -10,6 +10,8 @@ public class ProjectileWeapon : _Ability {
     public int splitAmount = 1;
     public float splitAngle = 0;
 
+    public float distanceAwayToSpawn = 0
+        ;
     public float randomWidth = 0.25f;
     public float randomAngle = 0;
 
@@ -27,7 +29,7 @@ public class ProjectileWeapon : _Ability {
         angleOffset += angleRotate * Time.deltaTime * ship.body.timeScale;
     }
 
-    override protected void DoAbility(float mult = 1) {
+    override protected Spaceship.States._State DoAbility(float mult = 1) {
 
         GetAbilityDir(out Vector3 dir);
 
@@ -54,10 +56,10 @@ public class ProjectileWeapon : _Ability {
             Vector3 finalDir = yawToDir(yawAim + i * splitAngle + rand);
             Vector3 offRight = Vector3.Cross(finalDir, Vector3.up) * Random.Range(-randomWidth, randomWidth);
 
-            Projectile p = Instantiate(projectilePrefab, transform.position + offRight, Quaternion.LookRotation(finalDir, Vector3.up));
+            Projectile p = Instantiate(projectilePrefab, transform.position + offRight + finalDir * distanceAwayToSpawn, Quaternion.LookRotation(finalDir, Vector3.up));
             p.InitBullet(vel, ship.controller.allegiance, dmg, spd, siz);
         }
-        ship.ChangeState(new Spaceship.States.Attacking());
+        return null;
     }
     Vector3 yawToDir(float degrees) {
         float radians = degrees * Mathf.Deg2Rad;

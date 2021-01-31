@@ -9,11 +9,11 @@ public class DashAbility : _Ability {
     public float chargeMinDistanceMult = 1;
     public float chargeMaxDistanceMult = 2;
 
-    protected override void DoAbility(float mult = 1) {
+    protected override Spaceship.States._State DoAbility(float mult = 1) {
         mult = mult * AnimMath.Lerp(chargeMinDistanceMult, chargeMaxDistanceMult, mult);
         GetAbilityDir(out Vector3 dir);
 
         Vector3 dest = ship.transform.localPosition + dir * distance;
-        ship.ChangeState(new Spaceship.States.Dashing(ship.transform.localPosition, dest, time));
+        return new Spaceship.States.Dashing(ship.transform.localPosition, dest, time);
     }
 }

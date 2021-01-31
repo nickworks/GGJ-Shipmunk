@@ -23,18 +23,25 @@ public class Spaceship : MonoBehaviour {
         public class Moving : _State {
             public override _State Update() {
 
-                ship.DoUpdateSubSystems();
-                
-                return null;
+                return ship.DoUpdateSubSystems(true);
             }
         }
         public class Attacking : _State {
+            _Ability activeAbility;
+            public Attacking(_Ability ability) {
+                activeAbility = ability;
+            }
             public override _State Update() {
 
-                ship.DoUpdateSubSystems();
-                if (!ship.controller.wantsToUseAbility) return new Moving();
+                ship.DoUpdateSubSystems(false);
 
-                return null;
+                if (!ship.controller.wantsToUseAbility) return new Moving();
+                if (!activeAbility) return new Moving();
+                
+                return activeAbility.DoTickActive();
+            }
+            public override void OnEnd() {
+                activeAbility = null;
             }
         }
         public class Dashing : _State {
@@ -52,14 +59,13 @@ public class Spaceship : MonoBehaviour {
                 this.start = start;
             }
             public override _State Update() {
-                ship.DoUpdateSubSystems();
-                if(DoDashTick()) return new Moving();
-                return null;
-            }
-            private bool DoDashTick() {
+                ship.DoUpdateSubSystems(false);
+
                 animTimer += Time.deltaTime;
                 ship.transform.localPosition = AnimMath.Lerp(start, end, animTimer / time, true);
-                return (animTimer >= time);
+
+                if (animTimer >= time) return new Moving();
+                return null;
             }
             public override void OnEnd() {
                 if (ship.controller.wantsToMove) {
@@ -136,7 +142,6 @@ public class Spaceship : MonoBehaviour {
     }
 
     void Update() {
-
         if (state == null) ChangeState(new States.Moving());
         ChangeState(state.Update());
 
@@ -209,22 +214,23 @@ public class Spaceship : MonoBehaviour {
         if (!abilitySystems.ContainsKey(slot)) return;
         abilitySystems[slot].
     }*/
-    private void DoUpdateSubSystems() {
+    private States._State DoUpdateSubSystems(bool ableToActivate) {
 
         if (engine) engine.DoTick();
 
+        foreach (_Passive sys in passiveSystems) sys.DoTick();
+
+        States._State nextState = null;
         foreach (KeyValuePair<AbilitySlots, _Ability> sys in abilitySystems) {
 
-            if (DoesControllerWantToUseMe(sys.Key)) {
-                sys.Value.DoTickActive();
-            } else {
-                sys.Value.DoTick();
+            sys.Value.DoTick();
+
+            if (ableToActivate && DoesControllerWantToUseMe(sys.Key)) {
+                nextState = new States.Attacking(sys.Value);
+                ableToActivate = false;
             }
         }
-        
-        foreach (_Passive sys in passiveSystems)
-            sys.DoTick();
-        
+        return nextState;        
     }
     public bool DoesControllerWantToUseMe(Spaceship.AbilitySlots currentSlot) {
         return (

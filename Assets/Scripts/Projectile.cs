@@ -67,28 +67,33 @@ public class Projectile : MonoBehaviour {
     }
     private void HitSingle(SpaceRigidbody injurableBody) {
 
+        // GRAVITY is the only affect that can be applied to friendly
+        if (affect == Affect.Gravity) {
+            Vector3 dir = (transform.position - injurableBody.transform.position).normalized;
+            injurableBody.AddForce(affectAmount * dir * damageMult);
+            return;
+        }
+        if (injurableBody.IsFriendly(this.body.allegiance)) return; // if friendly, return
+
         int effectAmt = (int)(affectAmount * damageMult);
         int damageAmt = (int)(damageAmount * damageMult);
 
-        injurableBody.TakeDamage(damageAmt);
-
         switch (affect) {
-            case Affect.DamageOnHit:
-                break;
             case Affect.SlowCondition:
                 injurableBody.AddCondition(new SpaceRigidbody.Condition.Slow(effectAmt, affectDuration));
                 break;
             case Affect.PoisonCondition:
                 injurableBody.AddCondition(new SpaceRigidbody.Condition.Poison(effectAmt, affectDuration));
                 break;
-            case Affect.Gravity:
-                Vector3 dir = (transform.position - injurableBody.transform.position).normalized;
-                injurableBody.AddForce(affectAmount * dir);
-                break;
             case Affect.Knockback:
                 injurableBody.AddForce(affectAmount * body.GetVelocity().normalized, ForceMode.VelocityChange);
                 break;
+            case Affect.Gravity:
+            case Affect.DamageOnHit:
+            default:
+                break;
         }
+        injurableBody.TakeDamage(damageAmt);
     }
     private void OnTriggerEnter(Collider other) {
 
