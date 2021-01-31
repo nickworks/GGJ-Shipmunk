@@ -11,6 +11,7 @@ public class PlayerController : Controller {
     public bool isUsingGamepad = false;
     public HUDController hudPrefab;
     public PauseMenuController pausePrefab;
+    public GameOverController gameOverPrefab;
     protected HUDController hud;
 
     void OnDestroy() {
@@ -85,5 +86,8 @@ public class PlayerController : Controller {
     }
     public void UpdateHUD() {
         if(hud) hud.RebuildViews(this);
+    }
+    public override void AlertDestroy() {
+        Instantiate(gameOverPrefab);
     }
 }

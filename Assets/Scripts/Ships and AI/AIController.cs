@@ -23,6 +23,22 @@ public class AIController : Controller {
             }
         }
         public class Aggro : _State {
+
+            float aggro = 0;
+            bool wantToA, wantToB, wantToC, wantToD;
+            public Aggro(float time = 0) {
+
+                aggro = (time > 0) ? time : Random.Range(0.2f, 1);
+
+                int n = Random.Range(0, 4);
+
+                wantToA = (n == 0);
+                wantToB = (n == 1);
+                wantToC = (n == 2);
+                wantToD = (n == 3);
+
+            }
+
             public override _State Update() {
 
                 if (!controller.attackTarget) return new Idle();
@@ -33,16 +49,25 @@ public class AIController : Controller {
 
                 controller.dirToAim = dir;
                 controller.wantsToAim = true;
-                controller.wantsToAbilityA = true;
+                controller.wantsToAbilityA = wantToA;
+                controller.wantsToAbilityB = wantToA;
+                controller.wantsToAbilityC = wantToA;
+                controller.wantsToAbilityD = wantToA;
 
                 controller.dirToMove = dir;
                 controller.wantsToMove = true;
+
+                aggro -= Time.deltaTime * controller.ship.body.timeScale;
+                if (aggro <= 0) return new Idle();
 
                 return null;
             }
             public override void OnEnd() {
                 controller.wantsToAim = false;
                 controller.wantsToAbilityA = false;
+                controller.wantsToAbilityB = false;
+                controller.wantsToAbilityC = false;
+                controller.wantsToAbilityD = false;
             }
         }
         public class Cooldown : _State {

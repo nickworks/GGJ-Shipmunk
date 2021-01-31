@@ -108,7 +108,10 @@ public class SpaceRigidbody : MonoBehaviour {
         if (amt <= 0) return;
         health -= amt;
 
-        if (health <= 0) Destroy(gameObject);
+        if (health <= 0) {
+            if(controller)
+            Destroy(gameObject);
+        }
     }
     public void AddCondition(Condition._Condition c) {
         activeConditions.Add(c);

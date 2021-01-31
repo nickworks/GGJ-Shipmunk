@@ -23,6 +23,7 @@ MonoBehaviour:
   isUsingGamepad: 0
   hudPrefab: {fileID: 5746012996466603467, guid: 485f6844cee17284aa02742d8b1fadef, type: 3}
   pausePrefab: {fileID: 985657022851581538, guid: d7bed28e6f5ad3c4c82e9ce70c399444, type: 3}
+  gameOverPrefab: {fileID: 7005979138538587113, guid: 37caf9724381119408340283af20a5a9, type: 3}
 --- !u!114 &1407436642960793555
 MonoBehaviour:
   m_ObjectHideFlags: 0
