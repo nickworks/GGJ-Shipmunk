@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour {
         Gravity,
         Knockback
     }
+    public int damageAmount = 10;
     public Affect affect = Affect.DamageOnHit;
     public int affectAmount = 10;
     public bool shouldAffectOtherProjectiles = false;
@@ -66,21 +67,26 @@ public class Projectile : MonoBehaviour {
     }
     private void HitSingle(SpaceRigidbody injurableBody) {
 
-        int dmg = (int)(affectAmount * damageMult);
+        int effectAmt = (int)(affectAmount * damageMult);
+        int damageAmt = (int)(damageAmount * damageMult);
+
+        injurableBody.TakeDamage(damageAmt);
 
         switch (affect) {
             case Affect.DamageOnHit:
-                injurableBody.TakeDamage(dmg);
                 break;
             case Affect.SlowCondition:
-                injurableBody.AddCondition(new SpaceRigidbody.Condition.Slow(dmg, affectDuration));
+                injurableBody.AddCondition(new SpaceRigidbody.Condition.Slow(effectAmt, affectDuration));
                 break;
             case Affect.PoisonCondition:
-                injurableBody.AddCondition(new SpaceRigidbody.Condition.Poison(dmg, affectDuration));
+                injurableBody.AddCondition(new SpaceRigidbody.Condition.Poison(effectAmt, affectDuration));
                 break;
             case Affect.Gravity:
                 Vector3 dir = (transform.position - injurableBody.transform.position).normalized;
                 injurableBody.AddForce(affectAmount * dir);
+                break;
+            case Affect.Knockback:
+                injurableBody.AddForce(affectAmount * body.GetVelocity().normalized, ForceMode.VelocityChange);
                 break;
         }
     }

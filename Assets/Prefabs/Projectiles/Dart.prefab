@@ -110,12 +110,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2d2176fb5692840ab20d2a9dd1c59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 15
   affect: 0
   affectAmount: 10
   shouldAffectOtherProjectiles: 0
   baseSpeed: 30
   baseLifeSpan: 4
-  destroyOnDoDamage: 1
+  destroyOnHit: 1
   affectDuration: 1
 --- !u!114 &-7155713324129295439
 MonoBehaviour:
@@ -145,5 +146,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0

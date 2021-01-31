@@ -36,7 +36,7 @@ public class ProjectileWeapon : _Ability {
         yawAim += angleOffset;
 
         // kick-back:
-        ship.AddForce(yawToDir(yawAim) * -kickbackImpulse);
+        ship.body.AddForce(yawToDir(yawAim) * -kickbackImpulse);
 
         Vector3 vel = ship.body.GetVelocity();
 

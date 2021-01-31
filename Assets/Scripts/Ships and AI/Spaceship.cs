@@ -24,7 +24,6 @@ public class Spaceship : MonoBehaviour {
             public override _State Update() {
 
                 ship.DoUpdateSubSystems();
-                ship.DoPhysTick();
                 
                 return null;
             }
@@ -33,8 +32,6 @@ public class Spaceship : MonoBehaviour {
             public override _State Update() {
 
                 ship.DoUpdateSubSystems();
-                ship.DoPhysTick();
-
                 if (!ship.controller.wantsToUseAbility) return new Moving();
 
                 return null;
@@ -66,20 +63,17 @@ public class Spaceship : MonoBehaviour {
             }
             public override void OnEnd() {
                 if (ship.controller.wantsToMove) {
-                    ship.AddForce(ship.controller.dirToMove * 10);
+                    ship.body.AddForce(ship.controller.dirToMove * 10);
                 }
             }
         }
     }
 
-    public float speed = 5;
     private Vector3 velocity;
 
     public Controller controller { get; private set; }
     public SpaceRigidbody body { get; private set; }
     public States._State state { get; private set; }
-
-    public _ShipSystem[] prefabsToAddAtRuntime;
 
     private _Engine engine;
     private List<_Passive> passiveSystems = new List<_Passive>();
@@ -100,8 +94,7 @@ public class Spaceship : MonoBehaviour {
         }
 
         // test install from prefab definitions:
-        foreach (_ShipSystem prefab in prefabsToAddAtRuntime)
-            if(prefab) SpawnAndInstall(prefab);
+        //foreach (_ShipSystem prefab in prefabsToAddAtRuntime) if(prefab) SpawnAndInstall(prefab);
 
         UpdateHUD();
     }
@@ -153,11 +146,6 @@ public class Spaceship : MonoBehaviour {
         if (state != null) state.OnEnd();
         state = next;
         state.OnStart(this);
-    }
-
-    public void AddForce(Vector3 force) {
-        force.y = 0;
-        velocity += force;
     }
     public void Clamp(Vector3 min, Vector3 max) {
         Vector3 pos = transform.position;
@@ -215,14 +203,7 @@ public class Spaceship : MonoBehaviour {
     private void DoPhysTick() {
         transform.localPosition += velocity * Time.deltaTime;
     }
-    public void ClampVelocity(float speed) {
-        if(velocity.sqrMagnitude > speed * speed){
-            velocity = velocity.normalized * speed;
-        }
-    }
-    public void DoSlowDown(float amountLeftAfterSecond = .05f) {
-        velocity = AnimMath.Slide(velocity, Vector3.zero, amountLeftAfterSecond, Time.deltaTime);
-    }
+    
     /*
     private void DoAbility(AbilitySlots slot) {
         if (!abilitySystems.ContainsKey(slot)) return;

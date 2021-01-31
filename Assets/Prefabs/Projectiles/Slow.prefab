@@ -126,12 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2d2176fb5692840ab20d2a9dd1c59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 50
   affect: 0
   affectAmount: 10
   shouldAffectOtherProjectiles: 0
   baseSpeed: 5
   baseLifeSpan: 5
-  destroyOnDoDamage: 1
+  destroyOnHit: 1
   affectDuration: 1
 --- !u!114 &-400525091961949658
 MonoBehaviour:
@@ -145,5 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106f5d1ed4b798b4a92ec2841616be52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
   _timeScale: 1
+  health: 100

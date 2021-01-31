@@ -12,14 +12,14 @@ public class _Engine : _ShipSystem {
         if (!ship) return;
         if (ship.controller.wantsToMove) {
             
-            ship.AddForce(transform.forward * strength * Time.deltaTime);
+            ship.body.AddForce(transform.forward * strength * Time.deltaTime);
             Quaternion targetRot = Quaternion.LookRotation(ship.controller.dirToMove, Vector3.up);
             transform.rotation = AnimMath.Slide(transform.rotation, targetRot, 0.0001f);
 
-            ship.ClampVelocity(maxSpeed);
+            ship.body.ClampVelocity(maxSpeed);
 
         } else {
-            ship.DoSlowDown(0.05f);
+            ship.body.DoSlowDown(0.05f);
         }
     }
 }

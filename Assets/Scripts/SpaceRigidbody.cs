@@ -114,8 +114,17 @@ public class SpaceRigidbody : MonoBehaviour {
         activeConditions.Add(c);
     }
     #region Physics Rigidbody API
-    public void AddForce(Vector3 v) {
-        body.AddForce(v);
+    public void AddForce(Vector3 v, ForceMode mode = ForceMode.Force) {
+        v.y = 0;
+        body.AddForce(v,mode);
+    }
+    public void ClampVelocity(float speed) {
+        if (body.velocity.sqrMagnitude > speed * speed) {
+            body.velocity = body.velocity.normalized * speed;
+        }
+    }
+    public void DoSlowDown(float amountLeftAfterSecond = .05f) {
+        body.velocity = AnimMath.Slide(body.velocity, Vector3.zero, amountLeftAfterSecond, Time.deltaTime);
     }
     public void SetVelocity(Vector3 v) {
         body.velocity = v;

@@ -240,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2d2176fb5692840ab20d2a9dd1c59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 20
   affect: 1
   affectAmount: 50
   shouldAffectOtherProjectiles: 1

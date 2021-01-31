@@ -44,7 +44,7 @@ public class Shockwave : _Ability {
             Vector3 d = (body.transform.position - transform.position);
             float mag = d.magnitude;
             float p = 1 - mag / radius;
-            body.AddForce(d * impulse * p / mag);
+            body.AddForce(d * impulse * p / mag, ForceMode.VelocityChange);
         }
         artRing.gameObject.SetActive(true);
         animating = true;
