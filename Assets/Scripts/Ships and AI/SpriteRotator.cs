@@ -21,11 +21,9 @@ public class SpriteRotator : MonoBehaviour {
 
     private Spaceship ship;
     
-    void Awake() {
+    void Start() {
         ship = GetComponent<Spaceship>();
-        if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.material = new Material(spriteRenderer.sharedMaterial);
-        spriteRenderer.material.SetFloat("seed", Random.Range(0, 1f));
+        if(!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     
     void Update() {
