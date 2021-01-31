@@ -30,9 +30,6 @@ public class Spaceship : MonoBehaviour {
             }
         }
         public class Attacking : _State {
-            public Attacking() {
-                print("????");
-            }
             public override _State Update() {
 
                 ship.DoUpdateSubSystems();

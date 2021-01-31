@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour {
 
-    public Transform art;
+    public SpriteRenderer art;
+    [Range(0,1)]public float spriteQueeze = 0.2f;
 
-    public Texture texture;
+    public Sprite[] sprites;
 
     float lifespan = 10;
     float age = 0;
@@ -30,22 +31,23 @@ public class Asteroid : MonoBehaviour {
     }
 
     private void OnValidate() {
-        //ApplyArt();
+        UpdateColliderSize();
     }
     void ApplyArt() {
-        if (art && texture) {
-            MeshRenderer mesh = art.GetComponent<MeshRenderer>();
-            if (mesh) {
-                List<Material> mats = new List<Material>();
-                mesh.GetMaterials(mats);
-                foreach (Material mat in mats) mat.SetTexture("_MainTex", texture);
-            }
+        if (art && sprites.Length > 0) {
+            art.sprite = sprites[Random.Range(0,sprites.Length)];
+            UpdateColliderSize();
         }
+    }
+    void UpdateColliderSize() {
+        if (!art) return;
+        Vector3 size = new Vector3(art.bounds.size.x - spriteQueeze, 1, art.bounds.size.z - spriteQueeze);
+        GetComponent<BoxCollider>().size = size;
     }
 
     void Update() {
         age += Time.deltaTime * body.timeScale;
         if (age > lifespan) Destroy(gameObject);
-        art.rotation = Quaternion.Euler(pitch,0,0) * transform.rotation * Quaternion.Euler(90, 0, 0);
+        art.transform.rotation = Quaternion.Euler(pitch,0,0) * transform.rotation * Quaternion.Euler(90, 0, 0);
     }
 }

@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7726050791782945596}
-  - component: {fileID: 4296626354602124485}
-  - component: {fileID: 479344399460747818}
+  - component: {fileID: 6295349665095007070}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -27,21 +26,13 @@ Transform:
   m_GameObject: {fileID: 1404313736074972234}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.302, z: 0}
-  m_LocalScale: {x: 1, y: 1.4699998, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1352769080371826829}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!33 &4296626354602124485
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404313736074972234}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &479344399460747818
-MeshRenderer:
+--- !u!212 &6295349665095007070
+SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -49,17 +40,17 @@ MeshRenderer:
   m_GameObject: {fileID: 1404313736074972234}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
+  m_RayTracingMode: 0
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 152feb8d4b4391c4c88382eddf5c6eb6, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -72,7 +63,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -80,7 +71,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 29419bb522cbfeb4b9e89dfb125bf570, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.25, y: 1.91}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &8124113045040122706
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,8 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106f5d1ed4b798b4a92ec2841616be52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
   _timeScale: 1
+  health: 100
 --- !u!54 &7434878994773805619
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -158,8 +159,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d2e1a81b818c847b6193aaa15308d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  art: {fileID: 7726050791782945596}
-  texture: {fileID: 2800000, guid: bd851a49e4eda2f44bfd8c518ff11659, type: 3}
+  art: {fileID: 6295349665095007070}
+  spriteQueeze: 0.221
+  sprites:
+  - {fileID: 21300000, guid: bd851a49e4eda2f44bfd8c518ff11659, type: 3}
+  - {fileID: 21300000, guid: 29419bb522cbfeb4b9e89dfb125bf570, type: 3}
+  - {fileID: 21300000, guid: 00d097a0f2cb0914b9c9ba65b5efbca3, type: 3}
+  - {fileID: 21300000, guid: d597525ae4449284da2ff770e5a0169f, type: 3}
 --- !u!65 &4275613480186468484
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -171,5 +177,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.82, y: 1, z: 1.36}
+  m_Size: {x: 1.179, y: 1, z: 1.2090001}
   m_Center: {x: 0, y: 0, z: 0}
