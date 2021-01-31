@@ -10,6 +10,7 @@ public class PlayerController : Controller {
 
     public bool isUsingGamepad = false;
     public HUDController hudPrefab;
+    public PauseMenuController pausePrefab;
     protected HUDController hud;
 
     void OnDestroy() {
@@ -46,6 +47,11 @@ public class PlayerController : Controller {
 
         wantsToAbilityC = axis3 > .2f;
         wantsToAbilityD = axis3 < -.2f || Input.GetButton("Fire4");
+
+        if (Input.GetButtonDown("Pause") && Time.timeScale > 0) {
+            Instantiate(pausePrefab);
+        }
+
     }
     private void LateUpdate() {
         if(scroller.currentMode == ScrollerController.CameraMode.Scrolling) ship.Clamp(scroller.min, scroller.max);

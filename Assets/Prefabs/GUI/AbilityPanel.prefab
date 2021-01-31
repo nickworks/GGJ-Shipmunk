@@ -301,3 +301,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   img: {fileID: 3850688651086702930}
   text: {fileID: 3015989337129796591}
+  bar: {fileID: 0}

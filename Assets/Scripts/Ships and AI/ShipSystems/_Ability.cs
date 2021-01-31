@@ -31,6 +31,11 @@ public class _Ability : _ShipSystem {
             return (timerForChargeUp > timeToCharge) ? 1 : timerForChargeUp / timeToCharge;
         }
     }
+    public float ammoPercent {
+        get {
+            return shotsLeftUntilReload / (float)maxUsesPerReload;
+        }
+    }
 
     private void Start() {
         shotsLeftUntilReload = maxUsesPerReload;

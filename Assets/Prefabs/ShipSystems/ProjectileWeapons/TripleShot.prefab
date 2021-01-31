@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   abilityName: Triple Shot
-  maxUsesPerReload: 1
+  maxUsesPerReload: 3
   maxUsesPerSecond: 3
   timeToReload: 0.1
   abilityFiresOnRelease: 0

@@ -28,6 +28,7 @@ public class SpriteRotator : MonoBehaviour {
     
     void Update() {
         if (!ship || !ship.controller) return;
+        if (Time.timeScale == 0) return;
 
         Vector3 dir = ship.controller.wantsToAim ? ship.controller.dirToAim : ship.controller.dirToMove;
         float a = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
