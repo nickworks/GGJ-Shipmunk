@@ -77,9 +77,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   abilityName: Shockwave
-  abilityIsAutoFire: 0
+  maxUsesPerReload: 3
   maxUsesPerSecond: 1
-  burstSize: 0
+  timeToReload: 0.25
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1

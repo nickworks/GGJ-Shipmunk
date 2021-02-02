@@ -187,6 +187,8 @@ MonoBehaviour:
   - {fileID: 8542800949936254544, guid: 22223368c17499e40a5576b4ac8e84e8, type: 3}
   - {fileID: 1201591603728416663, guid: 060c970aaaa28c14dadc251e82c00f5e, type: 3}
   - {fileID: 1201591603728416663, guid: 9bbb309752d5e054f93792b40c854249, type: 3}
+  - {fileID: 6432561350492986123, guid: 4398ace37895e60419ac599a0fc5c549, type: 3}
+  - {fileID: 8542800949936254544, guid: 98a17689fe92656468e04220967c009c, type: 3}
   scroller: {fileID: 1330032358}
   prefabBigThings:
   - {fileID: -8679921383154817045, guid: a47fc268d9e3f0d4690896b93ffa8a4f, type: 3}
@@ -655,6 +657,22 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 481749904017922928, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 815386109813173231, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2407969370173710395, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129721764694158909, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
+      propertyPath: startingAbilityNum
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7838249216518048813, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -706,6 +724,14 @@ PrefabInstance:
     - target: {fileID: 7838249216518048851, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8107370307693044250, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753601795874221499, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}

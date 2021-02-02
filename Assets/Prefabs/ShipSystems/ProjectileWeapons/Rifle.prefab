@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 6358419369591008742}
   - component: {fileID: 8542800949936254544}
   m_Layer: 0
-  m_Name: TripleShot
+  m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,10 +75,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  abilityName: Triple Shot
-  maxUsesPerReload: 2
-  maxUsesPerSecond: 3
-  timeToReload: 0.1
+  abilityName: Rifle
+  maxUsesPerReload: 3
+  maxUsesPerSecond: 8
+  timeToReload: 0.5
   abilityFiresOnRelease: 0
   abilityChargesUp: 0
   timeToCharge: 1
@@ -86,15 +86,15 @@ MonoBehaviour:
   usesMoveDirInsteadOfAim: 0
   kickbackImpulse: 1
   projectilePrefab: {fileID: 4616743461132739761, guid: 72eb4863d10a5804c9396ca132f756ca, type: 3}
-  splitAmount: 3
+  splitAmount: 1
   splitAngle: 10
   distanceAwayToSpawn: 0
   randomWidth: 0
   randomAngle: 0
   angleRotate: 0
-  chargeMinSize: 0
+  chargeMinSize: 1
   chargeMaxSize: 1
-  chargeMinSpeed: 0
-  chargeMaxSpeed: 1
-  chargeMinStrength: 0
+  chargeMinSpeed: 2
+  chargeMaxSpeed: 2
+  chargeMinStrength: 1
   chargeMaxStrength: 1

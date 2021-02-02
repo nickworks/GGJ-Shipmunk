@@ -13,7 +13,7 @@ public class GameOverController : MonoBehaviour
     }
     public void BttnReplay() {
         Time.timeScale = 1;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("BulletHell");
     }
     public void BttnQuit() {
         Time.timeScale = 1;

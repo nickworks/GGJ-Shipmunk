@@ -19,7 +19,7 @@ public class SpawnThings : MonoBehaviour {
 
     public static SpawnThings main { get; private set; }
 
-    void Start() {
+    void Awake() {
         if (main && main.gameObject) Destroy(main.gameObject);
         main = this;
         SpawnBackgroundItems();

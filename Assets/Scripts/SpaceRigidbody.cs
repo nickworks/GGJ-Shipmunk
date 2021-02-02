@@ -109,7 +109,7 @@ public class SpaceRigidbody : MonoBehaviour {
         health -= amt;
 
         if (health <= 0) {
-            if(controller)
+            if (controller) controller.AlertDestroy();
             Destroy(gameObject);
         }
     }

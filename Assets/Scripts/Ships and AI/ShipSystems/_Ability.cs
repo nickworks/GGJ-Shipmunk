@@ -92,6 +92,7 @@ public class _Ability : _ShipSystem {
     }
     public bool GetAbilityDir(out Vector3 dir) {
         dir = Vector3.zero;
+        if (!ship || !ship.controller) return false;
         if (usesMoveDirInsteadOfAim) {
             dir = ship.controller.dirToMove;
             return (ship.controller.wantsToMove);

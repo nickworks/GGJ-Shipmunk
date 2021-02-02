@@ -81,6 +81,8 @@ public class Spaceship : MonoBehaviour {
     private List<_Passive> passiveSystems = new List<_Passive>();
     public Dictionary<AbilitySlots, _Ability> abilitySystems { get; private set; }
 
+    [Range(0,4)]public int startingAbilityNum = 1;
+
     private void Awake() {
         controller = GetComponent<Controller>();
         body = GetComponent<SpaceRigidbody>();
@@ -97,7 +99,7 @@ public class Spaceship : MonoBehaviour {
 
         // test install from prefab definitions:
         //foreach (_ShipSystem prefab in prefabsToAddAtRuntime) if(prefab) SpawnAndInstall(prefab);
-
+        GiveRandomLoadout(startingAbilityNum);
         UpdateHUD();
     }
     private bool Install(_ShipSystem sys) {
@@ -239,8 +241,9 @@ public class Spaceship : MonoBehaviour {
             (controller.wantsToAbilityD && currentSlot == Spaceship.AbilitySlots.ActionD)
         );
     }
-    public void GiveRandomLoadout() {
-        for (int i = 0; i < 4; i++) {
+    public void GiveRandomLoadout(int num) {
+        if (num > 4) num = 4;
+        for (int i = 0; i < num; i++) {
             SpawnAndInstall(SpawnThings.PickRandom(SpawnThings.main.prefabAbilities));
         }
     }

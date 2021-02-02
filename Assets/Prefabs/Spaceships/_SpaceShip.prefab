@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b927f28d4df9748814058dfb993006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingAbilityNum: 1
 --- !u!1 &8843442034812048407
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +104,7 @@ GameObject:
   - component: {fileID: 6908911362279430835}
   - component: {fileID: 2395861358529089426}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
