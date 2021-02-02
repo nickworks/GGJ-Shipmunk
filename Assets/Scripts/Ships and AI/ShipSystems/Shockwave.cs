@@ -11,7 +11,8 @@ public class Shockwave : _Ability {
     protected float animTimer = 0;
     protected bool animating = false;
 
-    public void Awake() {
+    override protected void Start() {
+        base.Start();
         StopAnim();
     }
     public void Update() {
@@ -36,6 +37,7 @@ public class Shockwave : _Ability {
         artRing.transform.localScale = Vector3.zero;
     }
     protected override Spaceship.States._State DoAbility(float mult = 1) {
+        if (!ship || !ship.controller) return new Spaceship.States.Moving();
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
         foreach(Collider c in colliders) {
             SpaceRigidbody body = c.GetComponent<SpaceRigidbody>();

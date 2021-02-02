@@ -37,7 +37,7 @@ public class _Ability : _ShipSystem {
         }
     }
 
-    private void Start() {
+    virtual protected void Start() {
         shotsLeftUntilReload = maxUsesPerReload;
     }
 
