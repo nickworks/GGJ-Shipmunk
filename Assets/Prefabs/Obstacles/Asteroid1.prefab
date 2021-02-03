@@ -173,12 +173,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   art: {fileID: 6295349665095007070}
-  spriteQueeze: 0.221
-  sprites:
-  - {fileID: 21300000, guid: bd851a49e4eda2f44bfd8c518ff11659, type: 3}
-  - {fileID: 21300000, guid: 29419bb522cbfeb4b9e89dfb125bf570, type: 3}
-  - {fileID: 21300000, guid: 00d097a0f2cb0914b9c9ba65b5efbca3, type: 3}
-  - {fileID: 21300000, guid: d597525ae4449284da2ff770e5a0169f, type: 3}
+  randomSprites: []
+  shouldFitToCollider: 1
+  spriteSqueeze: 0.2
+  shouldTiltTowardsCam: 1
+  pitch: -10
 --- !u!65 &4275613480186468484
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -190,5 +189,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.179, y: 1, z: 1.2090001}
+  m_Size: {x: 1.1999999, y: 1, z: 1.23}
   m_Center: {x: 0, y: 0, z: 0}

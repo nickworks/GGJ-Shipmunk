@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnThings : MonoBehaviour {
 
-    public Asteroid[] prefabAsteroids;
+    public SpritePicker[] prefabAsteroids;
     public PickupPowerup[] prefabPowerups;
     public AIController[] prefabEnemies;
 
@@ -111,7 +111,7 @@ public class SpawnThings : MonoBehaviour {
 
         for (int i = 0; i < 6; i++) {
 
-            float y = Random.Range(-400, -1500);
+            float y = Random.Range(-200, -1500);
             float z = -y / ratio;
 
             Vector3 pos = transform.position + new Vector3(i * 500, y, z);

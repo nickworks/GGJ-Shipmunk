@@ -191,11 +191,11 @@ MonoBehaviour:
   - {fileID: 8542800949936254544, guid: 98a17689fe92656468e04220967c009c, type: 3}
   scroller: {fileID: 1330032358}
   prefabBigThings:
-  - {fileID: -8679921383154817045, guid: a47fc268d9e3f0d4690896b93ffa8a4f, type: 3}
-  - {fileID: 7141954092913855009, guid: 6f52157dde508404e93bd7bd88998919, type: 3}
-  - {fileID: -8679921383154817045, guid: 0a81ac47bf1450d4c85f16858ac6ff5a, type: 3}
-  - {fileID: -8679921383154817045, guid: 986bb6b03cc76ed45882e3f915eb3046, type: 3}
-  - {fileID: -8679921383154817045, guid: 0a0c4334d8a5ba740853051feedab468, type: 3}
+  - {fileID: 5439311663746885976, guid: fc66d7d9f377a5540a69d9ca745459aa, type: 3}
+  - {fileID: 4084099847043171685, guid: 900f2bef190bef642a7a8aeafad49f51, type: 3}
+  - {fileID: 177170603857799981, guid: df1e6e71af9f39c45a7e4dd60b936692, type: 3}
+  - {fileID: 5927482352831873216, guid: 1697a8b3780a2c0429a135a5d941123c, type: 3}
+  - {fileID: 5967710400076034887, guid: d2623945c4f51d74a8ee575e36121720, type: 3}
 --- !u!1 &586613620
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 481749904017922928, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 815386109813173231, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
       propertyPath: m_RootOrder
@@ -667,7 +667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2407969370173710395, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5129721764694158909, guid: 818cbd9c63e6d4e43a7757aee0004b88, type: 3}
       propertyPath: startingAbilityNum

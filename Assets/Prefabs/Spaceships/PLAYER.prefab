@@ -147,6 +147,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2541896119329521965, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
+      propertyPath: lifespan
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3671810375067917211, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
       propertyPath: m_Name
       value: PLAYER

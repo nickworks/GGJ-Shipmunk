@@ -30,6 +30,8 @@ public class SpaceRigidbody : MonoBehaviour {
 
     #region Health and Conditions
     public float health = 100;
+    public float age { get; private set; }
+    public float lifespan = 8;
     private List<Condition._Condition> activeConditions = new List<Condition._Condition>();
     static public class Condition {
         public class _Condition {
@@ -85,7 +87,14 @@ public class SpaceRigidbody : MonoBehaviour {
         timeScale = _timeScale;
     }
     void Update() {
+        CalculateAllConditions();
 
+        age += timeScale * Time.deltaTime;
+        if (lifespan > 0 && age > lifespan) Destroy(gameObject);
+
+    }
+
+    private void CalculateAllConditions() {
         // set blackboard variables:
         valueTimeScale = 1;
         valuePoisonDPS = 0;
@@ -100,6 +109,7 @@ public class SpaceRigidbody : MonoBehaviour {
         if (valuePoisonDPS > 0) TakeDamage(valuePoisonDPS * Time.deltaTime);
         timeScale = Mathf.Clamp(valueTimeScale, .01f, 1);
     }
+
     public bool IsFriendly(Controller.Allegiance other) {
         Controller.Allegiance myAllegiance = (controller ? controller.allegiance : allegiance);
         return (other == myAllegiance);

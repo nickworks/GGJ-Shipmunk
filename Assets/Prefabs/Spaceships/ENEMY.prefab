@@ -20,6 +20,28 @@ MonoBehaviour:
   wantsToAbilityB: 0
   wantsToAbilityC: 0
   wantsToAbilityD: 0
+--- !u!114 &830439861474263957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170983738371634860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9d2e1a81b818c847b6193aaa15308d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  art: {fileID: 4086518933741205380}
+  randomSprites:
+  - {fileID: 21300000, guid: c8cf9e46f20fd3444b43d28d1b4ffcb0, type: 3}
+  - {fileID: 21300000, guid: 5a137397491ff31459f539b54441c0be, type: 3}
+  - {fileID: 21300000, guid: 94965630ada7e1944ae328b1a537e1ca, type: 3}
+  - {fileID: 21300000, guid: 5546bc94efafefc4d8ecdd199342ea90, type: 3}
+  shouldFitToCollider: 1
+  spriteSqueeze: 0.115
+  shouldTiltTowardsCam: 0
+  pitch: 60
 --- !u!1001 &7446518463274560823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34,6 +56,10 @@ PrefabInstance:
     - target: {fileID: 1802430455327357429, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
       propertyPath: startingAbilityNum
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671810375067917210, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
+      propertyPath: m_Radius
+      value: 0.66485274
       objectReference: {fileID: 0}
     - target: {fileID: 3671810375067917211, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
       propertyPath: m_Name
@@ -87,10 +113,19 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6908911362279430835, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 94965630ada7e1944ae328b1a537e1ca, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
 --- !u!1 &6170983738371634860 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3671810375067917211, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
+  m_PrefabInstance: {fileID: 7446518463274560823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &4086518933741205380 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6908911362279430835, guid: 030a24eda646d6a418de0f9e939d9efd, type: 3}
   m_PrefabInstance: {fileID: 7446518463274560823}
   m_PrefabAsset: {fileID: 0}
