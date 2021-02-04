@@ -32,7 +32,4 @@ public class Controller : MonoBehaviour {
     void Awake() {
         ship = GetComponent<Spaceship>();
     }
-    virtual public void AlertDestroy() {
-
-    }
 }

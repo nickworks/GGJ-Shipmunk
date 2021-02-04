@@ -118,6 +118,8 @@ public class Projectile : MonoBehaviour {
         if (!shouldAffectOtherProjectiles && c.tag == tag) return true;
         otherBody = c.GetComponent<SpaceRigidbody>();
 
+        if (otherBody.completelyIgnoreProjectiles) return true;
+
         // if this is gravity, affect the other particle
         // even if the other particle is friendly?
 

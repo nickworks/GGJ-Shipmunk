@@ -87,7 +87,10 @@ public class PlayerController : Controller {
     public void UpdateHUD() {
         if(hud) hud.RebuildViews(this);
     }
-    public override void AlertDestroy() {
+    /// <summary>
+    /// Like OnDestroy(), but OnDie() is NOT called when unloading scenes.
+    /// </summary>
+    public void OnDie() {
         Instantiate(gameOverPrefab);
     }
 }

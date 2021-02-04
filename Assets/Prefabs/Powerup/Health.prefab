@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4531727797271770994}
   - component: {fileID: 8018931560320299917}
   - component: {fileID: 6616099062069446028}
-  - component: {fileID: 6644778768440344877}
+  - component: {fileID: 7548132073515005397}
   m_Layer: 0
-  m_Name: Powerup
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   maxHealth: 100
   completelyIgnoreProjectiles: 1
   lifespan: 8
---- !u!114 &6644778768440344877
+--- !u!114 &7548132073515005397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,9 +90,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7127584282450891885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f5fe3df6110ad345887f8ac87a1bc65, type: 3}
+  m_Script: {fileID: 11500000, guid: de000b0ef36528a4c99c10a3075aa341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 100
 --- !u!1 &7295110678992972231
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +166,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1290855366162983238, guid: cd5312aa7fcd93b468b9776a39faf3f9, type: 3}
+  m_Sprite: {fileID: -5166432130525955749, guid: cd5312aa7fcd93b468b9776a39faf3f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

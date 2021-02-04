@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeScale: 1
   health: 100
+  lifespan: 8
 --- !u!54 &7434878994773805619
 Rigidbody:
   m_ObjectHideFlags: 0

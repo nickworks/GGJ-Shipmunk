@@ -30,6 +30,9 @@ public class SpaceRigidbody : MonoBehaviour {
 
     #region Health and Conditions
     public float health = 100;
+    public float maxHealth = 100;
+    public bool completelyIgnoreProjectiles = false;
+
     public float age { get; private set; }
     public float lifespan = 8;
     private List<Condition._Condition> activeConditions = new List<Condition._Condition>();
@@ -114,14 +117,25 @@ public class SpaceRigidbody : MonoBehaviour {
         Controller.Allegiance myAllegiance = (controller ? controller.allegiance : allegiance);
         return (other == myAllegiance);
     }
+    public void Heal(float amt) {
+        if (amt < 0) amt = 0;
+        health += amt;
+        if (health > maxHealth) health = maxHealth;
+    }
     public void TakeDamage(float amt) {
         if (amt <= 0) return;
         health -= amt;
 
         if (health <= 0) {
-            if (controller) controller.AlertDestroy();
-            Destroy(gameObject);
+            Die();
         }
+    }
+    public void Die() {
+        SendMessage("OnDie");
+        Destroy(gameObject);
+    }
+    public void OnDie() {
+        // keep this 
     }
     public void AddCondition(Condition._Condition c) {
         activeConditions.Add(c);
