@@ -14,16 +14,22 @@ public class PlayerController : Controller {
     public GameOverController gameOverPrefab;
     protected HUDController hud;
 
+    SpaceRigidbody rigidbody;
+
     void OnDestroy() {
         if(hud) Destroy(hud.gameObject);
     }
     void Start() {
-
+        rigidbody = GetComponent<SpaceRigidbody>();
         scroller = FindObjectOfType<ScrollerController>();
         cam = Camera.main;
         allegiance = Allegiance.Player;
         hud = Instantiate(hudPrefab);
-        UpdateHUD();
+        RebuildHUD();
+    }
+    public float GetHealthPercent(){
+        if(rigidbody == null) return 0;
+        return rigidbody.health / rigidbody.maxHealth;
     }
     void Update() {
         InputMove();
@@ -52,7 +58,7 @@ public class PlayerController : Controller {
         if (Input.GetButtonDown("Pause") && Time.timeScale > 0) {
             Instantiate(pausePrefab);
         }
-
+        UpdateHUD();
     }
     private void LateUpdate() {
         if(scroller.currentMode == ScrollerController.CameraMode.Scrolling) ship.Clamp(scroller.min, scroller.max);
@@ -84,8 +90,11 @@ public class PlayerController : Controller {
         wantsToAim = (axisH * axisH + axisV * axisV > .2f);
         if (wantsToAim) dirToAim = new Vector3(axisH, 0, axisV).normalized;
     }
-    public void UpdateHUD() {
+    public void RebuildHUD() {
         if(hud) hud.RebuildViews(this);
+    }
+    public void UpdateHUD(){
+        if(hud) hud.UpdateHealth(this);
     }
     /// <summary>
     /// Like OnDestroy(), but OnDie() is NOT called when unloading scenes.

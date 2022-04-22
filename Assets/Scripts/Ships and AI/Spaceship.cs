@@ -187,7 +187,7 @@ public class Spaceship : MonoBehaviour {
     }
     public void UpdateHUD() {
         if (controller is PlayerController) {
-            (controller as PlayerController).UpdateHUD();
+            (controller as PlayerController).RebuildHUD();
         }
     }
 

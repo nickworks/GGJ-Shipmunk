@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour {
 
@@ -37,4 +36,13 @@ public class HUDController : MonoBehaviour {
             }
     }
     
+
+    private Slider slider;
+    void Start(){
+        slider = GetComponentInChildren<Slider>();
+    }
+    public void UpdateHealth(PlayerController player){
+        if(slider) slider.value = player.GetHealthPercent();
+    }
+
 }
