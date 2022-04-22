@@ -25,6 +25,7 @@ public class _Ability : _ShipSystem {
 
     [Header("Aiming Ability")]
     public bool usesMoveDirInsteadOfAim = false;
+    private Quaternion targetRot;
 
     public float chargedUpPercent {
         get {
@@ -87,8 +88,9 @@ public class _Ability : _ShipSystem {
     private void Aim() {
 
         if(GetAbilityDir(out Vector3 dir)) {
-            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            targetRot = Quaternion.LookRotation(dir, Vector3.up);
         }
+        transform.rotation = AnimMath.Slide(transform.rotation, targetRot, .001f);
     }
     public bool GetAbilityDir(out Vector3 dir) {
         dir = Vector3.zero;
