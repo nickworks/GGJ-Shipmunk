@@ -31,7 +31,9 @@ public class SpaceRigidbody : MonoBehaviour {
     #region Health and Conditions
     public float health = 100;
     public float maxHealth = 100;
+    private float invincibilitySecondsLeft = 0;
     public bool completelyIgnoreProjectiles = false;
+
 
     public float age { get; private set; }
     public float lifespan = 8;
@@ -68,6 +70,7 @@ public class SpaceRigidbody : MonoBehaviour {
     #region Access to Rigidbody, Controller, Allegiance
     private Rigidbody body;
     private Controller controller;
+    private PaperMatTweaker paperMaterial;
     private Controller.Allegiance _allegianceCache = Controller.Allegiance.Neutral;
     public Controller.Allegiance allegiance {
         get {
@@ -87,6 +90,8 @@ public class SpaceRigidbody : MonoBehaviour {
     void Awake() {
         body = GetComponent<Rigidbody>();
         controller = GetComponent<Controller>();
+        paperMaterial = GetComponentInChildren<PaperMatTweaker>();
+        
         timeScale = _timeScale;
     }
     void Update() {
@@ -101,6 +106,16 @@ public class SpaceRigidbody : MonoBehaviour {
         // set blackboard variables:
         valueTimeScale = 1;
         valuePoisonDPS = 0;
+
+        if(invincibilitySecondsLeft > 0 && paperMaterial){
+            invincibilitySecondsLeft -= Time.deltaTime;
+            if(invincibilitySecondsLeft <= 0){
+                paperMaterial.SetTint(Color.white);
+            } else {
+                bool flash = ((int)(invincibilitySecondsLeft / .15f))%2 == 0;
+                paperMaterial.SetTint(flash ? Color.red : Color.white);
+            }
+        }
 
         // allow conditions to write into bb:
         for (int i = activeConditions.Count - 1; i >= 0; i--) {
@@ -122,13 +137,20 @@ public class SpaceRigidbody : MonoBehaviour {
         health += amt;
         if (health > maxHealth) health = maxHealth;
     }
+    public bool IsInvincible(){
+        return invincibilitySecondsLeft > 0;
+    }
     public void TakeDamage(float amt) {
         if (amt <= 0) return;
+        if (IsInvincible()) return;
         health -= amt;
         
         if (health <= 0) {
             Die();
         }
+        invincibilitySecondsLeft = 0.4f;
+        if(paperMaterial) paperMaterial.SetTint(Color.red);
+
     }
     public void Die() {
         SendMessage("OnDie");
