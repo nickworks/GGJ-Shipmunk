@@ -39,7 +39,8 @@ public class ScrollerController : MonoBehaviour
         // scroll:
         Vector3 targetVelocity = (currentMode == CameraMode.Scrolling) ? scrollVelocity : Vector3.zero;
         actualVelocity = AnimMath.Slide(actualVelocity, targetVelocity, 0.01f, Time.deltaTime);
-        transform.position += actualVelocity * Time.deltaTime;
+        
+        transform.position += cam1.transform.TransformVector(actualVelocity * Time.deltaTime);
 
         // dolly/track camera:
         DollyTrackCamera();

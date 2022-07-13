@@ -40,6 +40,7 @@ public class SpaceRigidbody : MonoBehaviour {
     private List<Condition._Condition> activeConditions = new List<Condition._Condition>();
     static public class Condition {
         public class _Condition {
+            public Color color = Color.white;
             public int strength { get; private set; }
             public float timeLeft { get; private set; }
             internal _Condition(int s = 1, float t = 0.5f) {
@@ -51,6 +52,9 @@ public class SpaceRigidbody : MonoBehaviour {
             }
         }
         public class Slow : _Condition {
+            public Slow(){
+                color = Color.magenta;
+            }
             public Slow(int s = 1, float t = 0.5f) : base(s, t) {}
             public override void Update(SpaceRigidbody dnc) {
                 base.Update(dnc);
@@ -58,6 +62,9 @@ public class SpaceRigidbody : MonoBehaviour {
             }
         }
         public class Poison : _Condition {
+            public Poison(){
+                color = Color.green;
+            }
             public Poison(int s = 1, float t = 0.5f) : base(s, t) { }
             public override void Update(SpaceRigidbody hp) {
                 base.Update(hp);
@@ -107,21 +114,23 @@ public class SpaceRigidbody : MonoBehaviour {
         valueTimeScale = 1;
         valuePoisonDPS = 0;
 
-        if(invincibilitySecondsLeft > 0 && paperMaterial){
+        Color finalColor = Color.white;
+        
+        if(invincibilitySecondsLeft > 0){
             invincibilitySecondsLeft -= Time.deltaTime;
-            if(invincibilitySecondsLeft <= 0){
-                paperMaterial.SetTint(Color.white);
-            } else {
-                bool flash = ((int)(invincibilitySecondsLeft / .15f))%2 == 0;
-                paperMaterial.SetTint(flash ? Color.red : Color.white);
-            }
+            bool flash = ((int)(invincibilitySecondsLeft / .15f))%2 == 0;
+            finalColor = flash ? Color.red : Color.white;
         }
 
         // allow conditions to write into bb:
+
         for (int i = activeConditions.Count - 1; i >= 0; i--) {
             activeConditions[i].Update(this);
             if (activeConditions[i].timeLeft < 0) activeConditions.RemoveAt(i);
+            else if(invincibilitySecondsLeft <= 0) finalColor = activeConditions[i].color;
         }
+
+        if(paperMaterial) paperMaterial.SetTint(finalColor);
 
         // use bb values:
         if (valuePoisonDPS > 0) TakeDamage(valuePoisonDPS * Time.deltaTime);
