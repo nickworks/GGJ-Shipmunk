@@ -34,8 +34,6 @@ public class ScrollerController : MonoBehaviour
 
     void Update() {
 
-        if(Input.GetButtonDown("Jump")) currentMode = (currentMode == CameraMode.Scrolling) ? CameraMode.FreeRoam : CameraMode.Scrolling;
-
         // scroll:
         Vector3 targetVelocity = (currentMode == CameraMode.Scrolling) ? scrollVelocity : Vector3.zero;
         actualVelocity = AnimMath.Slide(actualVelocity, targetVelocity, 0.01f, Time.deltaTime);
@@ -44,6 +42,9 @@ public class ScrollerController : MonoBehaviour
 
         // dolly/track camera:
         DollyTrackCamera();
+    }
+    public void ToggleCameraMode(){
+        currentMode = (currentMode == CameraMode.Scrolling) ? CameraMode.FreeRoam : CameraMode.Scrolling;
     }
 
     private void DollyTrackCamera() {

@@ -1,26 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
     EventSystem events;
-
+    public Button defaultSelectedButton;
     void Start() {
-        events = GetComponentInChildren<EventSystem>();
+        events = GameObject.FindObjectOfType<EventSystem>();
     }
-
-    
     void Update() {
         if(events.currentSelectedGameObject == null) {
-            if(events.firstSelectedGameObject != null) {
-                events.SetSelectedGameObject(events.firstSelectedGameObject);
-            }
+            if(defaultSelectedButton) defaultSelectedButton.Select();
         }
     }
-
     public void BttnPlay() {
         SceneManager.LoadScene("BulletHell", LoadSceneMode.Single);
     }

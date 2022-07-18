@@ -2,19 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : Controller {
     
     Camera cam;
     ScrollerController scroller;
 
-    public bool isUsingGamepad = false;
     public HUDController hudPrefab;
     public PauseMenuController pausePrefab;
     public GameOverController gameOverPrefab;
     protected HUDController hud;
 
-    SpaceRigidbody rigidbody;
+    new SpaceRigidbody rigidbody;
 
     void OnDestroy() {
         if(hud) Destroy(hud.gameObject);
@@ -33,62 +33,21 @@ public class PlayerController : Controller {
     }
     void Update() {
         InputMove();
-        float h = Input.GetAxisRaw("AimX");
-        float v = Input.GetAxisRaw("AimY");
-        float dMouseX = Input.GetAxisRaw("Mouse X");
-        float dMouseY = Input.GetAxisRaw("Mouse Y");
+        InputAim();
 
-        bool switchToController = (h * h + v * v > 0.2f);
-        bool switchToMouse = (dMouseX != 0 || dMouseY != 0);
-
-        if (!isUsingGamepad && switchToController) isUsingGamepad = true;
-        else if ( isUsingGamepad && switchToMouse) isUsingGamepad = false;
-
-        if (!isUsingGamepad) GetAimAxisFromMouse(ref h, ref v);
-        InputAim(h, v);
-        
-        wantsToAbilityA = Input.GetButton("Fire1");
-        wantsToAbilityB = Input.GetButton("Fire2");
-
-        float axis3 = Input.GetAxisRaw("Fire3");
-
-        wantsToAbilityC = axis3 > .2f;
-        wantsToAbilityD = axis3 < -.2f || Input.GetButton("Fire4");
-
-        if (Input.GetButtonDown("Pause") && Time.timeScale > 0) {
-            Instantiate(pausePrefab);
-        }
         UpdateHUD();
     }
     private void LateUpdate() {
         if(scroller.currentMode == ScrollerController.CameraMode.Scrolling) ship.Clamp(scroller.min, scroller.max);
     }
 
-    private void InputMove() {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-
-        wantsToMove = (h * h + v * v > .2f);
-        if (wantsToMove) dirToMove = new Vector3(h, 0, v).normalized;
+    private void InputMove() {        
+        wantsToMove = (moveAxis.sqrMagnitude > .2f);
+        if (wantsToMove) dirToMove = new Vector3(moveAxis.x, 0, moveAxis.y).normalized;
     }
-    private void GetAimAxisFromMouse(ref float axisH, ref float axisV) {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, transform.position);
-
-        if (plane.Raycast(ray, out float dis)) {
-            Vector3 mouseWorldPos = ray.GetPoint(dis);
-            Vector3 dir = mouseWorldPos - transform.position;
-            dir = new Vector3(dir.x, 0, dir.z).normalized;
-            axisH = dir.x;
-            axisV = dir.z;
-            wantsToAim = true;
-        } else {
-            wantsToAim = false;
-        }
-    }
-    private void InputAim(float axisH, float axisV) {
-        wantsToAim = (axisH * axisH + axisV * axisV > .2f);
-        if (wantsToAim) dirToAim = new Vector3(axisH, 0, axisV).normalized;
+    private void InputAim() {
+        wantsToAim = (lookAxis.sqrMagnitude > .2f);
+        if (wantsToAim) dirToAim = new Vector3(lookAxis.x, 0, lookAxis.y).normalized;
     }
     public void RebuildHUD() {
         if(hud) hud.RebuildViews(this);
@@ -102,4 +61,92 @@ public class PlayerController : Controller {
     public void OnDie() {
         Instantiate(gameOverPrefab);
     }
+    #region Input UnityEvent Callbacks
+
+    /// <summary>
+    /// This stores the direction that the player is trying to move.
+    /// We store it so that we can then pass it to the pawn every Update().
+    /// </summary>
+    Vector2 moveAxis = Vector2.zero;
+    Vector2 lookAxis = Vector2.zero;
+
+    bool IsPaused {
+        get {
+            return Time.timeScale == 0;
+        }
+    }
+
+    /// <summary>
+    /// This is called when the Move axis is updated.
+    /// Store the input and pass to pawn each Update().
+    /// </summary>
+    /// <param name="ctxt"></param>
+    public void OnMove(InputAction.CallbackContext ctxt) {
+        if (IsPaused) return;
+        moveAxis = ctxt.ReadValue<Vector2>();
+    }
+    /// <summary>
+    /// When aiming with a controller stick,
+    /// calculate the angle and tell the pawn where to aim.
+    /// </summary>
+    /// <param name="ctxt"></param>
+    public void OnLookStick(InputAction.CallbackContext ctxt) {
+        if (IsPaused) return;
+        lookAxis = ctxt.ReadValue<Vector2>();
+    }
+    /// <summary>
+    /// When the mouse is moved, raycast from the camera,
+    /// and tell pawn to aim where the ray hits.
+    /// </summary>
+    /// <param name="ctxt"></param>
+    public void OnLookMouse(InputAction.CallbackContext ctxt) {
+        if (IsPaused) return;
+        if (cam == null) return;
+
+        // mouse delta (not used)
+        Vector3 mouseDelta = ctxt.ReadValue<Vector2>();
+
+        Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Plane plane = new Plane(Vector3.up, transform.position);
+
+        if (plane.Raycast(ray, out float dis)) {
+            Vector3 dir = ray.GetPoint(dis) - transform.position;
+            lookAxis = new Vector2(dir.x, dir.z).normalized;
+        } else {
+
+        }
+    }
+    public void OnPause(InputAction.CallbackContext ctxt) {
+        if (IsPaused) return;
+        if (ctxt.phase != InputActionPhase.Started) return;
+
+        Instantiate(pausePrefab);
+    }
+    void UpdateHUD(int shift = 0) {
+        //gui.SwitchTomes(pawn.tomes, pawn.CurrentTome(), shift);
+    }
+    public void OnAttack1(InputAction.CallbackContext ctxt){
+        if (ctxt.phase == InputActionPhase.Started) wantsToAbilityA = true;
+        if (ctxt.phase == InputActionPhase.Canceled) wantsToAbilityA = false;
+    }
+    public void OnAttack2(InputAction.CallbackContext ctxt){
+        if (ctxt.phase == InputActionPhase.Started) wantsToAbilityB = true;
+        if (ctxt.phase == InputActionPhase.Canceled) wantsToAbilityB = false;
+    }
+    public void OnAttack3(InputAction.CallbackContext ctxt){
+        if (ctxt.phase == InputActionPhase.Started) wantsToAbilityC = true;
+        if (ctxt.phase == InputActionPhase.Canceled) wantsToAbilityC = false;
+    }
+    public void OnAttack4(InputAction.CallbackContext ctxt){
+        if (ctxt.phase == InputActionPhase.Started) wantsToAbilityD = true;
+        if (ctxt.phase == InputActionPhase.Canceled) wantsToAbilityD = false;
+    }
+    private ScrollerController scrollRef;
+    public void OnToggleCam(InputAction.CallbackContext ctxt){
+        if (ctxt.phase == InputActionPhase.Started) {
+            if(scrollRef == null) scrollRef = GameObject.FindObjectOfType<ScrollerController>();
+            if(scrollRef != null) scrollRef.ToggleCameraMode();
+        }
+    }
+    #endregion
 }
