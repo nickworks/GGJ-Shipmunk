@@ -8,11 +8,24 @@ public class AbilityPanelController : MonoBehaviour {
 
     public Image img;
     public TMP_Text text;
-    public Image bar;
+    public Image barCooldown;
+    public Image barAmmo;
+    public Image barCharge;
+
+    _Ability _ability;
 
     public void UpdateView(_Ability ability) {
-        img.sprite = ability.sprite;
-        text.text = ability.abilityName;
-        //bar.fillAmount = ability.ammoPercent;
+        _ability = ability;
     }
+    public void Update(){
+        if(_ability){
+            img.sprite = _ability.sprite;
+            text.text = _ability.abilityName;
+            barCooldown.fillAmount = _ability.cooldownPercent;
+            barAmmo.fillAmount = _ability.ammoPercent;
+            barCharge.fillAmount = _ability.chargedUpPercent;
+            //_ability.
+        }
+    }
+
 }

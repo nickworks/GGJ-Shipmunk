@@ -206,28 +206,28 @@ public class Spaceship : MonoBehaviour {
     private void DoPhysTick() {
         transform.localPosition += velocity * Time.deltaTime;
     }
-    
-    /*
-    private void DoAbility(AbilitySlots slot) {
-        if (!abilitySystems.ContainsKey(slot)) return;
-        abilitySystems[slot].
-    }*/
     private States._State DoUpdateSubSystems(_Ability activeAbility = null) {
 
+        // run the engine:
         if (engine) engine.DoTick();
 
+        // run the passive systems:
         foreach (_Passive sys in passiveSystems) sys.DoTick();
         
         bool ableToActivate = (activeAbility == null);
         States._State nextState = null;
         foreach (KeyValuePair<AbilitySlots, _Ability> sys in abilitySystems) {
-
+            // determine if the player wants to use the current ability:
             bool want = DoesControllerWantToUseMe(sys.Key);
-
+            // run the current ability:
             sys.Value.DoTick(want);
-
             if(activeAbility == null) {
+                // if no ability is active, and if the player wants to use this ability
+                // return the Attacking ship-state
                 if (want) nextState = new States.Attacking(sys.Value);
+                // if the active ability is the current ability,
+                // run the current ability's active-tick, returning
+                // any new ship-states
             } else if (activeAbility == sys.Value) nextState = sys.Value.DoTickActive(want);
         }
 
